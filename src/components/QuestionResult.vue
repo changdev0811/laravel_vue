@@ -1,3 +1,4 @@
+<!-- QuestionResult component -->
 <template>
 	<div class="question-result">
 		<p><strong>{{questionData.title}}</strong> <span class="q1val">{{questionData.answer}}</span></p>
@@ -9,6 +10,7 @@
 		props: ['questionProp'],
 		data() {
 			return {
+				// Return the question object
 				questionData: this.questionProp
 			}
 		}

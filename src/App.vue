@@ -1,3 +1,4 @@
+<!-- App component -->
 <template>
     <div id="app">
         <div class="container">
@@ -14,14 +15,20 @@
 </template>
 
 <script>
+/* Import Question component and QuestionResults component
+/      Question component manages to display a question, hide itself and show the next question.
+/      QuestionResults component manages to display the answers results after the last question.
+*/
 import Question from './components/Question'
 import QuestionResults from './components/QuestionResults'
 export default {
     name: 'App',
     computed: {
+        // Get the array of questions from the store.
         questions() {
             return this.$store.getters.getQuestions
         },
+        // Get the visibility of the QuestionResults component from the store.
         resultsVisibility() {
             return this.$store.getters.getResultsVisibility
         }

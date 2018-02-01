@@ -5,7 +5,21 @@ Refactor of jQuery quiz flow using Vue+Vuex
 
 > A Vue.js project
 
+## How to clone this repository
+
+1. Open terminal/command prompt.
+
+2. Change the current working directory to the location where you want the cloned directory to be made.
+
+3. Type git clone, and then paste the git repo URL.
+
+	$ git clone https://github.com/RXMG/vue-vuex-flow.git
+
+4. Press Enter. Your local clone will be created.
+
 ## Build Setup
+
+Navigate to the root directory.
 
 ``` bash
 # install dependencies
