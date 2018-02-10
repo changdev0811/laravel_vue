@@ -8,7 +8,7 @@
 	/* Import QuestionResult component
 	/		QuestionResult component shows both of the question and the answer.
 	*/
-	import QuestionResult from './QuestionResult'
+	import QuestionResult from '@/components/QuestionResult'
 	export default {
 		name: 'QuestionResults',
 	 	props: ['questionsProp'],
@@ -23,4 +23,12 @@
 		}
 	}
 </script>
-<style></style>
+<style lang="sass" scoped>
+	.question-results
+		background: url('~@/assets/img/husky.jpg') no-repeat
+		background-size: cover
+		width: 100%
+		padding: 5% 20px 43% 20px
+		margin-top: 30px
+		border-radius: 15px
+</style>

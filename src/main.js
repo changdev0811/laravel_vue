@@ -5,12 +5,14 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 
+import '@/assets/css/main.sass'
+
 Vue.config.productionTip = false
 Vue.use(Vuex)
 
 var state = {
 	// the array of questions
-	questions: [
+	/*questions: [
 		{
 			id: 0,
 			title: "Question 1",
@@ -34,6 +36,14 @@ var state = {
 			title: "Question 4",
 			answer: "No",
 			show: false
+		}
+	],*/
+	questions: [
+		{
+			id: 0,
+			title: "Which dog do you love? Husky?",
+			answer: "No",
+			show: true
 		}
 	],
 	// the visibility of QuestionResults.

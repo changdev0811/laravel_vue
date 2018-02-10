@@ -16,4 +16,7 @@
 		}
 	}
 </script>
-<style></style>
+<style lang="sass" scoped>
+	.question-result
+		color: #20ec3f
+</style>
