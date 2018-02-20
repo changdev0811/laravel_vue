@@ -10,7 +10,7 @@
 </template> -->
 
 <!-- temporary template -->
-<template>
+<!-- <template>
 	<div class="question">
 		<div class="quiz-title">{{questionData.title}}</div>
 		<div class="row">
@@ -22,17 +22,16 @@
 			</div>
 		</div>
 	</div>
-</template>
+</template> -->
 <script>
-	import QCard from '@/components/resources/QCard'
+	// import QCard from '@/components/resources/QCard'
 	export default {
 		name: 'Question',
 		props: ['questionProp'],
 		data() {
 			return {
 				// Return the question object
-				questionData: this.questionProp,
-				active: false
+				// questionData: this.questionProp,
 			}
 		},
 		methods: {
@@ -42,12 +41,15 @@
 				// Call "setAnswerToQuestion" action of the Vuex store.
 				this.$store.dispatch("setAnswerToQuestion", payload)
 			},
-			mouseOver: function() {
-				this.active = !this.active
-			}
 		},
 		components: {
-			QCard,
+			// QCard,
+		},
+		render() {
+			return this.$scopedSlots.default({
+				questionData: this.questionProp,
+				setAnswerToQuestion: this.setAnswerToQuestion
+			})
 		}
 	}
 </script>
@@ -55,7 +57,7 @@
 <style lang="sass" scoped>
 	@import '~@/assets/css/mq.sass'
 	.question
-		padding: 0 5px 15px 5px
+		padding: 15px 5px
 	.quiz-title
 		font-weight: 300
 		color: #555

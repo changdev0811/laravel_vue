@@ -2,7 +2,7 @@
 <template>
     <div id="app">
         <Header />
-        <Content />
+        <Content-body />
         <Footer />
     </div>
 </template>
@@ -13,14 +13,14 @@
 /      QuestionResults component manages to display the answers results after the last question.
 */
 import Header from '@/components/layout/Header'
-import Content from '@/components/layout/Content'
+import ContentBody from '@/components/layout/ContentBody'
 import Footer from '@/components/layout/Footer'
 
 export default {
     name: 'App',
     components: {
         Header,
-        Content,
+        ContentBody,
         Footer,
     }
 }

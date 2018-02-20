@@ -5,45 +5,113 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 
+import VeeValidate from 'vee-validate'
+import VInputmask from 'v-inputmask'
+
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
+
 import '@/assets/css/main.sass'
 
+Vue.component('q-icon', Icon)
 Vue.config.productionTip = false
 Vue.use(Vuex)
+Vue.use(VeeValidate)
+Vue.use(VInputmask)
 
 var state = {
 	// the array of questions
-	/*questions: [
+	questions: [
 		{
 			id: 0,
-			title: "Question 1",
+			title: "Please select what you are interested in:",
 			answer: "No",
 			show: true
 		},
 		{
 			id: 1,
-			title: "Question 2",
+			title: "Tell us about your new home",
 			answer: "No",
 			show: false
 		},
 		{
 			id: 2,
-			title: "Question 3",
+			title: "What type of home is it?",
 			answer: "No",
 			show: false
 		},
 		{
 			id: 3,
-			title: "Question 4",
+			title: "What is the primary use of the home?",
 			answer: "No",
 			show: false
-		}
-	],*/
-	questions: [
+		},
 		{
-			id: 0,
-			title: "Which dog do you love? Husky?",
+			id: 4,
+			title: "When are you likely to purchase a home?",
 			answer: "No",
-			show: true
+			show: false
+		},
+		{
+			id: 5,
+			title: "No title",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 6,
+			title: "No title",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 7,
+			title: "Tell us about the home you want to refinance!",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 8,
+			title: "What is the estimated value of your home?",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 9,
+			title: "Tell us about your current loan",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 10,
+			title: "No title",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 11,
+			title: "Are you looking to pull additional cash by refinancing?",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 12,
+			title: "Now tell us a little about you so we can get you matched with\
+			 		the best mortgage lender and rate based on your specific needs!",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 13,
+			title: "No title",
+			answer: "No",
+			show: false
+		},
+		{
+			id: 14,
+			title: "Please complete the following form to see your results",
+			answer: "No",
+			show: false
 		}
 	],
 	// the visibility of QuestionResults.
