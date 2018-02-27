@@ -1,28 +1,3 @@
-<!-- Question component -->
-
-<!-- basic template -->
-<!-- <template>
-	<div id="question">
-        <h3>{{questionData.title}}</h3>
-        <div class="btn btn-success" data-value="Yes" @click="setAnswerToQuestion(questionData.id, 'Yes')">Yes</div>
-        <div class="btn btn-success" data-value="No" @click="setAnswerToQuestion(questionData.id, 'No')">No</div>
-	</div>
-</template> -->
-
-<!-- temporary template -->
-<!-- <template>
-	<div class="question">
-		<div class="quiz-title">{{questionData.title}}</div>
-		<div class="row">
-			<div class="col-md-6">
-				<q-card title="Husky" img-src="img/husky1.jpg" @click.native="setAnswerToQuestion(questionData.id, 'Yes')"></q-card>
-			</div>
-			<div class="col-md-6">
-				<q-card title="Shepherd" img-src="img/shepherd.jpg" @click.native="setAnswerToQuestion(questionData.id, 'No')"></q-card>
-			</div>
-		</div>
-	</div>
-</template> -->
 <script>
 	// import QCard from '@/components/resources/QCard'
 	export default {
@@ -30,24 +5,32 @@
 		props: ['questionProp'],
 		data() {
 			return {
-				// Return the question object
-				// questionData: this.questionProp,
+
 			}
 		},
+		computed: {
+	        // Get the array of questions from the store.
+	        questions: {
+	            get: function() {
+	            	return this.$store.getters.getQuestions	
+	            }
+	        },
+	    },
 		methods: {
 			// Set the answer to the current question object.
-			setAnswerToQuestion: function(id, answer) {
+			setAnswerToQuestion: function(id, answer, next_form) {
 				var payload = {id: id, answer: answer}
 				// Call "setAnswerToQuestion" action of the Vuex store.
 				this.$store.dispatch("setAnswerToQuestion", payload)
+				this.$router.push('/' + next_form)
 			},
 		},
 		components: {
-			// QCard,
+			
 		},
 		render() {
 			return this.$scopedSlots.default({
-				questionData: this.questionProp,
+				questionData: this.questions[this.questionProp],
 				setAnswerToQuestion: this.setAnswerToQuestion
 			})
 		}
