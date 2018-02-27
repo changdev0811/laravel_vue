@@ -22,7 +22,8 @@
 				var payload = {id: id, answer: answer}
 				// Call "setAnswerToQuestion" action of the Vuex store.
 				this.$store.dispatch("setAnswerToQuestion", payload)
-				this.$router.push('/' + next_form)
+				// this.$router.push('/' + next_form)
+				this.$router.replace('/' + next_form)
 			},
 		},
 		components: {
