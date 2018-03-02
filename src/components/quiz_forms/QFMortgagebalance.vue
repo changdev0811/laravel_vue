@@ -1,7 +1,7 @@
 <template>
 	<!-- form 11 -->
 	<div class="q-f-mortgagebalance">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
 				<div class="row vertical-middle" id="">
@@ -13,8 +13,10 @@
 							<q-select
 								q-name="Balance"
 								:options="homevalue_options"
+								:q-value="firstMorBalance"
 								:q-validate="'required'"
 								q-select-icon="dollar"
+								:on-change="(e) => {firstMorBalance = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -28,8 +30,10 @@
 							<q-select
 								q-name="Rate"
 								:options="downpayment_options"
+								:q-value="firstMorRate"
 								:q-validate="'required'"
 								q-select-icon="percent"
+								:on-change="(e) => {firstMorRate = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -43,8 +47,10 @@
 							<q-select
 								q-name="RateType"
 								:options="loantype_options"
+								:q-value="refiLoanType"
 								:q-validate="'required'"
 								q-select-icon="asterisk"
+								:on-change="(e) => {refiLoanType = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -53,7 +59,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'creditstatus')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFCreditstatus', setMortgageInfo)">
 							next 
 						</q-button>
 					</div>
@@ -91,7 +97,24 @@
 		data() {
 	        return {
 	        	quesIndex: 10,
+	        	firstMorBalance: '',
+	        	firstMorRate: '',
+	        	refiLoanType: '',
 	        }
+	    },
+	    methods: {
+	    	setMortgageInfo: function() {
+	    		if (this.firstMorBalance == '' || this.firstMorRate == '' || this.refiLoanType == '') {
+	    			return false
+	    		}
+	    		var payload = {
+					firstMorBalance: this.firstMorBalance,
+					firstMorRate: this.firstMorRate,
+					refiLoanType: this.refiLoanType
+				}
+	    		this.$store.dispatch("setMortgageInfo", payload)
+	    		return true
+	    	},
 	    },
 	    components: {
 	    	Question,

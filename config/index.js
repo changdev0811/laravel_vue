@@ -10,7 +10,22 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+        '/api.smartfha': {
+            target: 'http://smartfha.com',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api.smartfha': ''
+            }
+        },
+        // '/api.rxmg': {
+        //     target: 'https://api.rxmg.bid',
+        //     changeOrigin: true,
+        //     pathRewrite: {
+        //         '^/api.rxmg': ''
+        //     }
+        // },
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

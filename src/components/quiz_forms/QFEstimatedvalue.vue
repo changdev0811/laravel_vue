@@ -1,7 +1,7 @@
 <template>
 	<!-- form 9 -->
 	<div class="q-f-estimatedvalue">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<div class="quiz-title">{{questionData.title}}</div>
 				<div class="row">
@@ -10,7 +10,9 @@
 							<q-select
 								q-name="this"
 								:options="homevalue_options"
+								:q-value="refiHomeValue"
 								:q-validate="'required'"
+								:on-change="(e) => {refiHomeValue = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -19,7 +21,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'firstandsecond')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFFirstandsecond', setRefiHomeValue)">
 							next 
 						</q-button>
 					</div>
@@ -45,7 +47,18 @@
 		data() {
 	        return {
 	        	quesIndex: 8,
+	        	refiHomeValue: '',
 	        }
+	    },
+	    methods: {
+	    	setRefiHomeValue: function() {
+	    		if (this.refiHomeValue == '') {
+	    			return false
+	    		}
+	    		var payload = this.refiHomeValue
+	    		this.$store.dispatch("setRefiHomeValue", payload)
+	    		return true
+	    	},
 	    },
 	    components: {
 	    	Question,

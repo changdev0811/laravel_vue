@@ -1,8 +1,7 @@
 <script>
-	// import QCard from '@/components/resources/QCard'
 	export default {
 		name: 'Question',
-		props: ['questionProp'],
+		props: ['questionIndex'],
 		data() {
 			return {
 
@@ -15,24 +14,51 @@
 	            	return this.$store.getters.getQuestions	
 	            }
 	        },
+	        isSinglePageApp: {
+	        	get: function() {
+	        		return this.$store.getters.getIsSinglePageApp
+	        	}
+	        },
 	    },
 		methods: {
-			// Set the answer to the current question object.
-			setAnswerToQuestion: function(id, answer, next_form) {
+			/*	Set the answer to the current question object.
+			*	id 			: question id
+			*	answer 		: answer
+			*	next_form 	: route name
+			*/
+			setAnswerToQuestion: function(id, answer, next_form, callback) {
+				// var to_next = true
+				if (typeof(callback) == 'function') {
+					// to_next = callback()
+					if (!callback()) {
+						alert('Please enter all your information correctly.')
+						return
+					}
+				}
 				var payload = {id: id, answer: answer}
 				// Call "setAnswerToQuestion" action of the Vuex store.
 				this.$store.dispatch("setAnswerToQuestion", payload)
-				// this.$router.push('/' + next_form)
-				this.$router.replace('/' + next_form)
+				if (next_form !== '') {
+					if (this.isSinglePageApp) {
+						this.$router.replace({name: next_form})
+					} else {
+						this.$router.push({name: next_form})
+					}
+				}
 			},
-		},
-		components: {
-			
+			finalSubmit: function(callback){
+				if (typeof(callback) == 'function') {
+					callback()
+				} else {
+					alert(callback)
+				}
+			},
 		},
 		render() {
 			return this.$scopedSlots.default({
-				questionData: this.questions[this.questionProp],
-				setAnswerToQuestion: this.setAnswerToQuestion
+				questionData: this.questions[this.questionIndex],
+				setAnswerToQuestion: this.setAnswerToQuestion,
+				finalSubmit: this.finalSubmit,
 			})
 		}
 	}

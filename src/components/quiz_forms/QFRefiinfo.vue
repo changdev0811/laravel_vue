@@ -1,7 +1,7 @@
 <template>
 	<!-- form 8 -->
 	<div class="q-f-refiinfo">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<div class="quiz-title">{{questionData.title}}</div>
 				<div class="row">
@@ -10,7 +10,9 @@
 							<q-select
 								q-name="States" 
 								:options="states_options"
+								:q-value="refiStates"
 								:q-validate="'required'"
+								:on-change="(e) => {refiStates = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -23,8 +25,10 @@
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
+								:q-value= "refiZipcode"
 								:q-mask="'99999'"
 								:q-validate="'required|numeric'"
+								:on-input="(e) => {refiZipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -33,7 +37,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'hometype')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFHometype', setRefiZipcode)">
 							next 
 						</q-button>
 					</div>
@@ -60,7 +64,19 @@
 		data() {
 			return {
 				quesIndex: 7,
+				refiStates: '',
+				refiZipcode: '',
 	        }
+	    },
+	    methods: {
+	    	setRefiZipcode: function() {
+				if (this.refiZipcode == '' || this.refiStates == '') {
+					return false
+				}	    		
+	    		var payload = this.refiZipcode
+	    		this.$store.dispatch("setRefiZipcode", payload)
+	    		return true
+	    	},
 	    },
 	    components: {
 	    	Question,

@@ -7,7 +7,7 @@
                     	<div class="content-title">FHA mortgages at Record Low APR!</div>
                     	<router-view/>
 						<!-- form 5 -->
-						<!-- <question :question-prop="questions[4]" :key="questions[4].id">
+						<!-- <question :question-index="questions[4]" :key="questions[4].id">
 							<div v-show="questionData.show" class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 								<div class="quiz-title">{{questionData.title}}</div>
 								<div class="row">
@@ -31,7 +31,7 @@
 						</question> --><!-- end of form 5 -->
 						
 						<!-- form 14 -->
-                        <!-- <question :question-prop="questions[13]" :key="questions[13].id">
+                        <!-- <question :question-index="questions[13]" :key="questions[13].id">
 							<div v-show="questionData.show" class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 								<div class="quiz-title">Can you verify your income?</div>
 								<div class="row">

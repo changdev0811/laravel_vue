@@ -1,7 +1,7 @@
 <template>
 	<!-- form 7 -->
 	<div class="q-f-estimatedvaluepayment">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
 				<div class="row vertical-middle" id="homeFound">
@@ -13,8 +13,10 @@
 							<q-select
 								q-name="Balance"
 								:options="homevalue_options"
+								:q-value="estHomeValue"
 								:q-validate="'required'"
 								q-select-icon="dollar"
+								:on-change="(e) => {estHomeValue = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -28,8 +30,10 @@
 							<q-select
 								q-name="Rate"
 								:options="downpayment_options"
+								:q-value="estDownpayment"
 								:q-validate="'required'"
 								q-select-icon="percent"
+								:on-change="(e) => {estDownpayment = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -43,8 +47,10 @@
 							<q-select
 								q-name="RateType"
 								:options="loantype_options"
+								:q-value="estLoanType"
 								:q-validate="'required'"
 								q-select-icon="asterisk"
+								:on-change="(e) => {estLoanType = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -53,7 +59,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'creditstatus')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFCreditstatus', setEstDownpaymentInfo)">
 							next 
 						</q-button>
 					</div>
@@ -91,7 +97,24 @@
 		data() {
 	        return {
 	        	quesIndex: 6,
+	        	estHomeValue: '',
+	        	estDownpayment: '',
+	        	estLoanType: '',
 	        }
+	    },
+	    methods: {
+	    	setEstDownpaymentInfo: function() {
+	    		if (this.estHomeValue == '' || this.estDownpayment == '' || this.estLoanType == '') {
+	    			return false
+	    		}
+	    		var payload = {
+	    			estHomeValue: this.estHomeValue,
+	    			estDownpayment: this.estDownpayment,
+	    			estLoanType: this.estLoanType
+	    		}
+	    		this.$store.dispatch("setEstDownpaymentInfo", payload)
+	    		return true
+	    	}
 	    },
 	    components: {
 	    	Question,

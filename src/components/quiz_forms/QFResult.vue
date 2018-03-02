@@ -1,6 +1,6 @@
 <template>
 	<div class="q-f-result">
-		<question-results :questions-prop="questions"/>
+		<question-results :questions="questions"/>
 	</div>
 </template>
 <script>

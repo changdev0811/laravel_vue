@@ -1,7 +1,7 @@
 <!-- QuestionResults component -->
 <template>
 	<div class="question-results">
-		<question-result v-for="question in questions" :question-prop="question" :key="question.id" />
+		<question-result v-for="question in questions" :question="question" :key="question.id" />
     </div>
 </template>
 <script>
@@ -11,13 +11,7 @@
 	import QuestionResult from '@/components/QuestionResult'
 	export default {
 		name: 'QuestionResults',
-	 	props: ['questionsProp'],
-	    data() {
-			return {
-				// Return the array of the questions
-				questions: this.questionsProp
-			}
-		},
+	 	props: ['questions'],
 		components: {
 			QuestionResult
 		}

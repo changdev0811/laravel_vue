@@ -1,7 +1,7 @@
 <template>
 	<!-- form 6 -->
 	<div class="q-f-homeagentfound">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
 				<div class="row vertical-middle" id="homeFound">
@@ -9,10 +9,20 @@
 						<div class="quiz-subtitle">Have you found a home?</div>
 					</div><!--
 					--><div class="col-md-2">
-						<q-card title="Yes" img-src="img/yes.png"></q-card>
+						<q-card 
+							title="Yes" 
+							img-src="img/yes.png"
+							@click.native="() => {homeFound = 'yes'}">
+						</q-card>
+						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setHomeFound('yes'))" -->
 					</div><!--
 					--><div class="col-md-2">
-						<q-card title="No" img-src="img/no.png"></q-card>
+						<q-card 
+							title="No" 
+							img-src="img/no.png"
+							@click.native="() => {homeFound = 'no'}">
+						<!-- @click.native="setAnswerToQuestion(questionData.id, 'No', '', setHomeFound('no'))" -->
+						</q-card>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="workagent">
@@ -20,10 +30,20 @@
 						<div class="quiz-subtitle">Are you currently working with an agent?</div>
 					</div><!--
 					--><div class="col-md-2">
-						<q-card title="Yes" img-src="img/yes.png"></q-card>
+						<q-card 
+							title="Yes" 
+							img-src="img/yes.png"
+							@click.native="() => {workWAgent = 'yes'}">
+						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setWorkWAgent('yes'))" -->
+						</q-card>
 					</div><!--
 					--><div class="col-md-2">
-						<q-card title="No" img-src="img/no.png"></q-card>
+						<q-card 
+							title="No" 
+							img-src="img/no.png"
+							@click.native="() => {workWAgent = 'no'}">
+						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setWorkWAgent('no'))" -->
+						</q-card>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="timeframe">
@@ -35,7 +55,9 @@
 							<q-select
 								q-name="this"
 								:options="timeframe_options"
+								:q-value="nhTimeFrame"
 								:q-validate="'required'"
+								:on-change="(e) => {nhTimeFrame = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -44,7 +66,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'estimatedvaluepayment')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFEstimatedvaluepayment', setNhAgentInfo)">
 							next 
 						</q-button>
 					</div>
@@ -71,7 +93,31 @@
 		data() {
 	        return {
 	        	quesIndex: 5,
+	        	homeFound: '',
+	        	workWAgent: '',
+	        	nhTimeFrame: '',
 	        }
+	    },
+	    methods: {
+	    	// setHomeFound: function(payload) {
+	    	// 	this.$store.dispatch("setHomeFound", payload)
+	    	// },
+	    	// setWorkWAgent: function(payload) {
+	    	// 	this.$store.dispatch("setWorkWAgent", payload)
+	    	// },
+	    	// setNhTimeFrame: function() {
+	    	setNhAgentInfo: function() {
+	    		if (this.homeFound == '' || this.workWAgent == '' || this.nhTimeFrame == '') {
+	    			return false
+	    		}
+	    		var payload = {
+	    			homeFound: this.homeFound,
+	    			workWAgent: this.workWAgent,
+	    			nhTimeFrame: this.nhTimeFrame
+	    		}
+	    		this.$store.dispatch("setNhAgentInfo", payload)
+	    		return true
+	    	},
 	    },
 	    components: {
 	    	Question,

@@ -5,11 +5,23 @@
 				<q-icon :name="qSelectIcon"></q-icon>
 			</div>
 			
-			<select
+			<select v-if="onChange"
 				:name="qName" 
 				class="form-control input-lg"
 				v-validate="qValidate"
 				data-vv-delay="500"
+				:value="qValue"
+				:class="{'input': true, 'is-danger': errors.has(qName)}"
+				@change="onChange"
+			>
+				<option v-for="option in options" :value="option.value">{{option.label}}</option>
+			</select>
+			<select v-else
+				:name="qName" 
+				class="form-control input-lg"
+				v-validate="qValidate"
+				data-vv-delay="500"
+				:value="qValue"
 				:class="{'input': true, 'is-danger': errors.has(qName)}"
 			>
 				<option v-for="option in options" :value="option.value">{{option.label}}</option>
@@ -21,7 +33,7 @@
 <script>
 	export default {
 		name: 'q-select',
-		props: ['options', 'q-select-icon', 'q-name', 'q-validate'],
+		props: ['options', 'q-select-icon', 'q-value', 'on-change', 'q-name', 'q-validate'],
 	}
 </script>
 <style lang="sass" scoped>

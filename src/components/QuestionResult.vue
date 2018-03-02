@@ -7,11 +7,11 @@
 <script>
 	export default {
 		name: 'QuestionResult',
-		props: ['questionProp'],
+		props: ['question'],
 		data() {
 			return {
 				// Return the question object
-				questionData: this.questionProp
+				questionData: this.question
 			}
 		}
 	}

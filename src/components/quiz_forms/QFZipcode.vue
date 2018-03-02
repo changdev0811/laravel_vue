@@ -1,7 +1,7 @@
 <template>
 	<!-- form 2 -->
 	<div class="q-f-zipcode">
-		<question :question-prop="quesIndex">
+		<question :question-index="quesIndex">
 			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
 				<div class="quiz-title">{{questionData.title}}</div>
 				<div class="row">
@@ -14,8 +14,10 @@
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
+								:q-value="nhZipcode"
 								:q-mask="'99999'"
 								:q-validate="'required|numeric'"
+								:on-input="(e) => {nhZipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -24,7 +26,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'hometype')">
+							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFHometype', setNhZipcode)">
 							next 
 						</q-button>
 					</div>
@@ -41,8 +43,19 @@
 		name: 'q-f-zipcode',
 		data() {
 	        return {
-	        	quesIndex: 1
+	        	quesIndex: 1,
+	        	nhZipcode: '',
 	        }
+	    },
+	    methods: {
+	    	setNhZipcode: function() {
+	    		if (this.nhZipcode == '') {
+	    			return false
+	    		}
+	    		var payload = this.nhZipcode
+	    		this.$store.dispatch("setNhZipcode", payload)
+	    		return true
+	    	},
 	    },
 		components: {
 			Question,
