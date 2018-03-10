@@ -1,9 +1,9 @@
 <template>
 	<!-- form 15 -->
 	<div class="q-f-contactinfo">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion, finalSubmit }">
-				<div class="quiz-title">{{questionData.title}}</div>
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion, finalSubmit }">
+				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-4 col-md-offset-2">
 						<div class="q-answer">
@@ -151,7 +151,7 @@
 	</div><!-- end of form 15 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QInput from '@/components/resources/QInput'
@@ -174,7 +174,7 @@
 	    },
 		data() {
 			return {
-				quesIndex: 14,
+				questionTitle: 'Please complete the following form to see your results',
 				source: 'smartfha.com',
 
 				firstName: '',

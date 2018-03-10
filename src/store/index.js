@@ -6,85 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		isSinglePageApp: true,
-		// the array of questions
-		questions: [
-			{
-				id: 0,
-				title: "Please select what you are interested in:",
-				answer: "No",
-			},
-			{
-				id: 1,
-				title: "Tell us about your new home",
-				answer: "No",
-			},
-			{
-				id: 2,
-				title: "What type of home is it?",
-				answer: "No",
-			},
-			{
-				id: 3,
-				title: "What is the primary use of the home?",
-				answer: "No",
-			},
-			{
-				id: 4,
-				title: "When are you likely to purchase a home?",
-				answer: "No",
-			},
-			{
-				id: 5,
-				title: "No title",
-				answer: "No",
-			},
-			{
-				id: 6,
-				title: "No title",
-				answer: "No",
-			},
-			{
-				id: 7,
-				title: "Tell us about the home you want to refinance!",
-				answer: "No",
-			},
-			{
-				id: 8,
-				title: "What is the estimated value of your home?",
-				answer: "No",
-			},
-			{
-				id: 9,
-				title: "Tell us about your current loan",
-				answer: "No",
-			},
-			{
-				id: 10,
-				title: "No title",
-				answer: "No",
-			},
-			{
-				id: 11,
-				title: "Are you looking to pull additional cash by refinancing?",
-				answer: "No",
-			},
-			{
-				id: 12,
-				title: "Now tell us a little about you so we can get you matched with\
-				 		the best mortgage lender and rate based on your specific needs!",
-				answer: "No",
-			},
-			{
-				id: 13,
-				title: "No title",
-				answer: "No",
-			},
-			{
-				id: 14,
-				title: "Please complete the following form to see your results",
-				answer: "No",
-			}
-		],
 		homevalue_options: [
 			{ 'label': 'Please Choose:', 'value': '' },
 			{ 'label': '75,000 - 100,000', 'value': '100000' },
@@ -279,8 +200,6 @@ export default new Vuex.Store({
 	getters: {
 		// Get isSinglePageApp from the state.
 		getIsSinglePageApp: state => state.isSinglePageApp,
-		// Get the array of questions from the state.
-		getQuestions: state => state.questions,
 		// Get the visibility of QuestionResults from the state.
 		getResultsVisibility: state => state.show_results,
 		
@@ -323,15 +242,6 @@ export default new Vuex.Store({
 	},
 
 	mutations: {
-		// Set the answer for the question and modify the state.
-		SET_ANSWER_TO_QUESTION: (state, payload) => {
-			// Get the index of the current question.
-			var index = state.questions.findIndex(question => question.id === payload.id)
-			// Get the question object.
-			var item = state.questions[index]
-			// Set the answer.
-			item.answer = payload.answer
-		},
 		SET_LOAN_INTEREST: (state, payload) => {
 			state.loanInterest = payload.loanInterest ? payload.loanInterest : ''
 			state.loanType = payload.loanType ? payload.loanType : ''
@@ -380,15 +290,6 @@ export default new Vuex.Store({
 		SET_NH_ZIPCODE: (state, payload) => {
 			state.nhZipcode = payload
 		},
-		// SET_HOME_FOUND: (state, payload) => {
-		// 	state.homeFound = payload
-		// },
-		// SET_WORK_W_AGENT: (state, payload) => {
-		// 	state.workWAgent = payload
-		// },
-		// SET_NH_TIMEFRAME: (state, payload) => {
-		// 	state.nhTimeFrame = payload
-		// },
 		SET_NH_AGENT_INFO: (state, payload) => {
 			state.homeFound = payload.homeFound ? payload.homeFound : ''
 			state.workWAgent = payload.workWAgent ? payload.workWAgent : ''	
@@ -397,11 +298,6 @@ export default new Vuex.Store({
 	},
 
 	actions: {
-		// Set the answer to the question
-		setAnswerToQuestion: (context, payload) => {
-			// Call the mutation of SET_ANSWER_TO_QUESTION.
-			context.commit("SET_ANSWER_TO_QUESTION", payload)
-		},
 		setLoanInterest: (context, payload) => {
 			context.commit("SET_LOAN_INTEREST", payload)
 		},
@@ -436,15 +332,6 @@ export default new Vuex.Store({
 		setNhZipcode: (context, payload) => {
 			context.commit("SET_NH_ZIPCODE", payload)
 		},
-		// setHomeFound: (context, payload) => {
-		// 	context.commit("SET_HOME_FOUND", payload)
-		// },
-		// setWorkWAgent: (context, payload) => {
-		// 	context.commit("SET_WORK_W_AGENT", payload)
-		// },
-		// setNhTimeFrame: (context, payload) => {
-		// 	context.commit("SET_NH_TIMEFRAME", payload)
-		// },
 		setNhAgentInfo: (context, payload) => {
 			context.commit("SET_NH_AGENT_INFO", payload)
 		},

@@ -1,9 +1,7 @@
 <template>
-	<!-- form 11 -->
-	<div class="q-f-mortgagetwobalance">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
+	<div class="q-f-ref-mortgage-info">
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
 				<div class="row vertical-middle" id="">
 					<div class="col-md-6 col-md-offset-1">
 						<div class="quiz-subtitle">1st Mortgage balance:</div>
@@ -55,59 +53,26 @@
 						</div>
 					</div>
 				</div>
-				<div class="row vertical-middle" id="">
-					<div class="col-md-6 col-md-offset-1">
-						<div class="quiz-subtitle">2st Mortgage balance:</div>
-					</div><!--
-					--><div class="col-md-4">
-						<div class="q-answer">
-							<q-select
-								q-name="Balance"
-								:options="homevalue_options"
-								:q-value="secondMorBalance"
-								:q-validate="'required'"
-								q-select-icon="dollar"
-								:on-change="(e) => {secondMorBalance = e.target.value}"
-							></q-select>
-						</div>
-					</div>
-				</div>
-				<div class="row vertical-middle" id="">
-					<div class="col-md-6 col-md-offset-1">
-						<div class="quiz-subtitle">Interest Rate:</div>
-					</div><!--
-					--><div class="col-md-4">
-						<div class="q-answer">
-							<q-select
-								q-name="Rate"
-								:options="downpayment_options"
-								:q-value="secondMorRate"
-								:q-validate="'required'"
-								q-select-icon="percent"
-								:on-change="(e) => {secondMorRate = e.target.value}"
-							></q-select>
-						</div>
-					</div>
-				</div>
 				<div class="row btn-wrapper">
 					<div class="col-md-4 col-md-offset-4">
-						<q-button 
+						<q-button
+							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFCreditstatus', setMortgageInfo)">
+							@click.native="setAnswerToQuestion('QFCreditRating')">
 							next 
 						</q-button>
 					</div>
 				</div>
 			</div>
 		</question>
-	</div><!-- end of form 11 -->
+	</div>
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	export default {
-		name: 'q-f-mortgagetwobalance',
+		name: 'q-f-ref-mortgage-info',
 		computed: {
 	        // Get the homevalue_options from the store.
 	        homevalue_options: {
@@ -129,36 +94,17 @@
 	        },
 	    },
 		data() {
-	        return {
-	        	quesIndex: 10,
-	        	firstMorBalance: '',
+			return {
+				firstMorBalance: '',
 	        	firstMorRate: '',
-	        	secondMorBalance: '',
-	        	secondMorRate: '',
 	        	refiLoanType: '',
-	        }
-	    },
-	    methods: {
-	    	setMortgageInfo: function() {
-	    		if (this.firstMorBalance == '' || this.firstMorRate == '' || this.secondMorBalance == '' || this.secondMorRate == '' || this.refiLoanType == '') {
-	    			return false
-	    		}
-	    		var payload = {
-	    						firstMorBalance: this.firstMorBalance,
-	    						firstMorRate: this.firstMorRate,
-	    						secondMorBalance: this.secondMorBalance,
-	    						secondMorRate: this.secondMorRate,
-	    						refiLoanType: this.refiLoanType,
-	    					  }
-	    		this.$store.dispatch("setMortgageInfo", payload)
-	    		return true
-	    	}
-	    },
-	    components: {
-	    	Question,
-	    	QButton,
-	    	QSelect,
-	    }
+			}
+		},
+		components: {
+			Question,
+			QButton,
+			QSelect,
+		},
 	}
 </script>
 <style lang="sass" scoped>

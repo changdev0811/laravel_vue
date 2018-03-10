@@ -1,9 +1,9 @@
 <template>
 	<!-- form 8 -->
 	<div class="q-f-refiinfo">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<div class="quiz-title">{{questionData.title}}</div>
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
+				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-4 col-md-offset-2">
 						<div class="q-answer">
@@ -18,10 +18,6 @@
 					</div>
 					<div class="col-md-4">
 						<div class="q-answer">
-							<!-- <q-masked-input
-								q-placeholder="Zipcode:"
-								:q-mask="[/\d/, /\d/, /\d/, /\d/, /\d/]"
-							></q-masked-input> -->
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
@@ -37,7 +33,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFHometype', setRefiZipcode)">
+							@click.native="setAnswerToQuestion('QFHometype', setRefiZipcode)">
 							next 
 						</q-button>
 					</div>
@@ -47,7 +43,7 @@
 	</div><!-- end of form 8 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QInput from '@/components/resources/QInput'
@@ -63,7 +59,7 @@
 	    },
 		data() {
 			return {
-				quesIndex: 7,
+				questionTitle: 'Tell us about the home you want to refinance!',
 				refiStates: '',
 				refiZipcode: '',
 	        }

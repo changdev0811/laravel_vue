@@ -1,56 +1,55 @@
 <template>
-	<!-- form 7 -->
-	<div class="q-f-estimatedvaluepayment">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
-				<div class="row vertical-middle" id="homeFound">
-					<div class="col-md-8">
-						<div class="quiz-subtitle">Estimated Home Value:</div>
+	<!-- form 11 -->
+	<div class="q-f-mortgagebalance">
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
+				<div class="row vertical-middle" id="">
+					<div class="col-md-6 col-md-offset-1">
+						<div class="quiz-subtitle">1st Mortgage balance:</div>
 					</div><!--
 					--><div class="col-md-4">
 						<div class="q-answer">
 							<q-select
 								q-name="Balance"
 								:options="homevalue_options"
-								:q-value="estHomeValue"
+								:q-value="firstMorBalance"
 								:q-validate="'required'"
 								q-select-icon="dollar"
-								:on-change="(e) => {estHomeValue = e.target.value}"
+								:on-change="(e) => {firstMorBalance = e.target.value}"
 							></q-select>
 						</div>
 					</div>
 				</div>
-				<div class="row vertical-middle" id="workagent">
-					<div class="col-md-8">
-						<div class="quiz-subtitle">Estimated Down Payment:</div>
+				<div class="row vertical-middle" id="">
+					<div class="col-md-6 col-md-offset-1">
+						<div class="quiz-subtitle">Interest Rate:</div>
 					</div><!--
 					--><div class="col-md-4">
 						<div class="q-answer">
 							<q-select
 								q-name="Rate"
 								:options="downpayment_options"
-								:q-value="estDownpayment"
+								:q-value="firstMorRate"
 								:q-validate="'required'"
 								q-select-icon="percent"
-								:on-change="(e) => {estDownpayment = e.target.value}"
+								:on-change="(e) => {firstMorRate = e.target.value}"
 							></q-select>
 						</div>
 					</div>
 				</div>
-				<div class="row vertical-middle" id="timeframe">
-					<div class="col-md-8">
-						<div class="quiz-subtitle">Desired Rate Type:</div>
+				<div class="row vertical-middle" id="">
+					<div class="col-md-6 col-md-offset-1">
+						<div class="quiz-subtitle">Existing Rate Type:</div>
 					</div><!--
 					--><div class="col-md-4">
 						<div class="q-answer">
 							<q-select
 								q-name="RateType"
 								:options="loantype_options"
-								:q-value="estLoanType"
+								:q-value="refiLoanType"
 								:q-validate="'required'"
 								q-select-icon="asterisk"
-								:on-change="(e) => {estLoanType = e.target.value}"
+								:on-change="(e) => {refiLoanType = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -59,21 +58,21 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFCreditstatus', setEstDownpaymentInfo)">
+							@click.native="setAnswerToQuestion('QFCreditstatus', setMortgageInfo)">
 							next 
 						</q-button>
 					</div>
 				</div>
 			</div>
 		</question>
-	</div><!-- end of form 7 -->
+	</div><!-- end of form 11 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	export default {
-		name: 'q-f-estimatedvaluepayment',
+		name: 'q-f-mortgagebalance',
 		computed: {
 	        // Get the homevalue_options from the store.
 	        homevalue_options: {
@@ -96,25 +95,24 @@
 	    },
 		data() {
 	        return {
-	        	quesIndex: 6,
-	        	estHomeValue: '',
-	        	estDownpayment: '',
-	        	estLoanType: '',
+	        	firstMorBalance: '',
+	        	firstMorRate: '',
+	        	refiLoanType: '',
 	        }
 	    },
 	    methods: {
-	    	setEstDownpaymentInfo: function() {
-	    		if (this.estHomeValue == '' || this.estDownpayment == '' || this.estLoanType == '') {
+	    	setMortgageInfo: function() {
+	    		if (this.firstMorBalance == '' || this.firstMorRate == '' || this.refiLoanType == '') {
 	    			return false
 	    		}
 	    		var payload = {
-	    			estHomeValue: this.estHomeValue,
-	    			estDownpayment: this.estDownpayment,
-	    			estLoanType: this.estLoanType
-	    		}
-	    		this.$store.dispatch("setEstDownpaymentInfo", payload)
+					firstMorBalance: this.firstMorBalance,
+					firstMorRate: this.firstMorRate,
+					refiLoanType: this.refiLoanType
+				}
+	    		this.$store.dispatch("setMortgageInfo", payload)
 	    		return true
-	    	}
+	    	},
 	    },
 	    components: {
 	    	Question,

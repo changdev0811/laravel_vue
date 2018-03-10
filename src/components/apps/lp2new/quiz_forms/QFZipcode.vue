@@ -1,16 +1,12 @@
 <template>
 	<!-- form 2 -->
 	<div class="q-f-zipcode">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<div class="quiz-title">{{questionData.title}}</div>
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
+				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="">
-							<!-- <q-masked-input
-								q-placeholder="Zipcode:"
-								:q-mask="[/\d/, /\d/, /\d/, /\d/, /\d/]"
-							></q-masked-input> -->
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
@@ -26,7 +22,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFHometype', setNhZipcode)">
+							@click.native="setAnswerToQuestion('QFHometype', setNhZipcode)">
 							next 
 						</q-button>
 					</div>
@@ -36,14 +32,14 @@
 	</div><!-- end of form 2 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QInput from '@/components/resources/QInput'
 	import QButton from '@/components/resources/QButton'
 	export default {
 		name: 'q-f-zipcode',
 		data() {
 	        return {
-	        	quesIndex: 1,
+	        	questionTitle: 'Tell us about your new home',
 	        	nhZipcode: '',
 	        }
 	    },

@@ -1,12 +1,22 @@
 <template>
 	<div class="q-button">
-		<button class="btn sub-btn"><slot></slot><i v-if="qBtnIcon" :class="['glyphicon', qBtnIcon]"></i></button>
+		<button
+			:style="{background:qBtnColor}"
+			class="btn sub-btn">
+			<slot></slot>
+			<i v-if="qBtnIcon" :class="['glyphicon', qBtnIcon]"></i>
+		</button>
 	</div>
 </template>
 <script>
 	export default {
 		name: 'q-button',
-		props: ['q-btn-icon'],
+		props: ['q-btn-icon', 'q-btn-color'],
+		data() {
+			return {
+
+			}
+		}
 	}
 </script>
 <style lang="sass" scoped>
@@ -30,5 +40,5 @@
 	    text-transform: uppercase
 	    font-size: 18px
 	.q-button button:hover
-		background: #7d7d7d
+		background: #7d7d7d !important
 </style>

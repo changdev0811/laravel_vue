@@ -1,19 +1,7 @@
 <script>
 	export default {
 		name: 'Question',
-		props: ['questionIndex'],
-		data() {
-			return {
-
-			}
-		},
 		computed: {
-	        // Get the array of questions from the store.
-	        questions: {
-	            get: function() {
-	            	return this.$store.getters.getQuestions	
-	            }
-	        },
 	        isSinglePageApp: {
 	        	get: function() {
 	        		return this.$store.getters.getIsSinglePageApp
@@ -21,23 +9,16 @@
 	        },
 	    },
 		methods: {
-			/*	Set the answer to the current question object.
-			*	id 			: question id
-			*	answer 		: answer
+			/*	Set the answer to the current question.
 			*	next_form 	: route name
 			*/
-			setAnswerToQuestion: function(id, answer, next_form, callback) {
-				// var to_next = true
+			setAnswerToQuestion: function(next_form, callback) {
 				if (typeof(callback) == 'function') {
-					// to_next = callback()
 					if (!callback()) {
 						alert('Please enter all your information correctly.')
 						return
 					}
 				}
-				var payload = {id: id, answer: answer}
-				// Call "setAnswerToQuestion" action of the Vuex store.
-				this.$store.dispatch("setAnswerToQuestion", payload)
 				if (next_form !== '') {
 					if (this.isSinglePageApp) {
 						this.$router.replace({name: next_form})
@@ -56,7 +37,6 @@
 		},
 		render() {
 			return this.$scopedSlots.default({
-				questionData: this.questions[this.questionIndex],
 				setAnswerToQuestion: this.setAnswerToQuestion,
 				finalSubmit: this.finalSubmit,
 			})

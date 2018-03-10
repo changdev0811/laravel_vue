@@ -1,9 +1,9 @@
 <template>
 	<!-- form 9 -->
 	<div class="q-f-estimatedvalue">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<div class="quiz-title">{{questionData.title}}</div>
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
+				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="">
@@ -21,7 +21,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFFirstandsecond', setRefiHomeValue)">
+							@click.native="setAnswerToQuestion('QFFirstandsecond', setRefiHomeValue)">
 							next 
 						</q-button>
 					</div>
@@ -31,7 +31,7 @@
 	</div><!-- end of form 9 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	export default {
@@ -46,7 +46,7 @@
 	    },
 		data() {
 	        return {
-	        	quesIndex: 8,
+	        	questionTitle: 'What is the estimated value of your home?',
 	        	refiHomeValue: '',
 	        }
 	    },

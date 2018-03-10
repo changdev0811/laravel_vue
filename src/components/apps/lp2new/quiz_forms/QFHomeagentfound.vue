@@ -1,9 +1,8 @@
 <template>
 	<!-- form 6 -->
 	<div class="q-f-homeagentfound">
-		<question :question-index="quesIndex">
-			<div class="question" slot-scope="{ questionData, setAnswerToQuestion }">
-				<!-- <div class="quiz-title">{{questionData.title}}</div> -->
+		<question>
+			<div class="question" slot-scope="{ setAnswerToQuestion }">
 				<div class="row vertical-middle" id="homeFound">
 					<div class="col-md-8">
 						<div class="quiz-subtitle">Have you found a home?</div>
@@ -14,14 +13,12 @@
 							img-src="img/yes.png"
 							@click.native="() => {homeFound = 'yes'}">
 						</q-card>
-						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setHomeFound('yes'))" -->
 					</div><!--
 					--><div class="col-md-2">
 						<q-card 
 							title="No" 
 							img-src="img/no.png"
 							@click.native="() => {homeFound = 'no'}">
-						<!-- @click.native="setAnswerToQuestion(questionData.id, 'No', '', setHomeFound('no'))" -->
 						</q-card>
 					</div>
 				</div>
@@ -34,7 +31,6 @@
 							title="Yes" 
 							img-src="img/yes.png"
 							@click.native="() => {workWAgent = 'yes'}">
-						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setWorkWAgent('yes'))" -->
 						</q-card>
 					</div><!--
 					--><div class="col-md-2">
@@ -42,7 +38,6 @@
 							title="No" 
 							img-src="img/no.png"
 							@click.native="() => {workWAgent = 'no'}">
-						<!-- @click.native="setAnswerToQuestion(questionData.id, 'Yes', '', setWorkWAgent('no'))" -->
 						</q-card>
 					</div>
 				</div>
@@ -66,7 +61,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion(questionData.id, 'Yes', 'QFEstimatedvaluepayment', setNhAgentInfo)">
+							@click.native="setAnswerToQuestion('QFEstimatedvaluepayment', setNhAgentInfo)">
 							next 
 						</q-button>
 					</div>
@@ -76,7 +71,7 @@
 	</div><!-- end of form 6 -->
 </template>
 <script>
-	import Question from '@/components/Question'
+	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QCard from '@/components/resources/QCard'
@@ -92,20 +87,12 @@
 	    },
 		data() {
 	        return {
-	        	quesIndex: 5,
 	        	homeFound: '',
 	        	workWAgent: '',
 	        	nhTimeFrame: '',
 	        }
 	    },
 	    methods: {
-	    	// setHomeFound: function(payload) {
-	    	// 	this.$store.dispatch("setHomeFound", payload)
-	    	// },
-	    	// setWorkWAgent: function(payload) {
-	    	// 	this.$store.dispatch("setWorkWAgent", payload)
-	    	// },
-	    	// setNhTimeFrame: function() {
 	    	setNhAgentInfo: function() {
 	    		if (this.homeFound == '' || this.workWAgent == '' || this.nhTimeFrame == '') {
 	    			return false
