@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import lp2new_mdl from '@/components/apps/lp2new/module'
-import anew_mdl from '@/components/apps/anew/module'
+import VuexPlus from 'vuex-plus'
+import { newInstance } from 'vuex-plus'
+import appModule from '@/components/apps/app-store.js'
 
 Vue.use(Vuex)
+Vue.use(VuexPlus.getVuePlugin(Vue)); // Adds global vuex+ mixin to components
 
 export default new Vuex.Store({
+	plugins: [VuexPlus.getVuexPlugin(Vuex)], // Patch vuex for $parent & bootstrap HMR
 	modules: {
-		lp2new: lp2new_mdl,
-		anew: anew_mdl,
+		lp2new: newInstance(appModule),
+		anew: newInstance(appModule),
 		common: {
 			namespaced: true,
 			state: {

@@ -1,24 +1,25 @@
-export default {
+import { store } from 'vuex-plus'
+export default store({
 	namespaced: true,
 	state: {
-		// 1 - 
+		// 1 -
 		loanInterest: '',
 		loanType: '',
-		// 2 - 
+		// 2 -
 		additionalCash: '',
-		// 3 - 
+		// 3 -
 		refiZipcode: '',
-		// 4 - 
+		// 4 -
 		refiHomeValue: '',
-		// 5 - 
+		// 5 -
 		firstMorBalance: '',
     	firstMorRate: '',
     	secondMorBalance: '',
     	secondMorRate: '',
     	refiLoanType: '',
-    	// 6 - 
+    	// 6 -
     	creditType: '',
-    	// 7 - 
+    	// 7 -
     	contactInfo: {
     		firstName: '',
     		lastName: '',
@@ -29,9 +30,9 @@ export default {
     		priEmail: '',
     		priPhone: '',
     	},
-    	// 8 - 
+    	// 8 -
     	nhZipcode: '',
-    	// 9 - 
+    	// 9 -
     	homeType: '',
     	// 10 -
     	homeUse: '',
@@ -43,7 +44,7 @@ export default {
     	estHomeValue: '',
     	estDownpayment: '',
     	estLoanType: '',
-	},	// end of state-lp2new --------------------------------------
+	},	// end of state --------------------------------------
 	getters: {
 		getSubmitData: state => {
 			return {
@@ -83,7 +84,7 @@ export default {
 			}
 		},
 
-	},	// end of getters-lp2new --------------------------------------
+	},	// end of getters --------------------------------------
 	mutations: {
 		// common function
 		SET_ANSWERS_INFO: (state, payload) => {
@@ -91,11 +92,11 @@ export default {
 				state[key] = value
 			}
 		},
-	},	// end of mutations-lp2new --------------------------------------
+	},	// end of mutations --------------------------------------
 	actions: {
 		// common function
 		setAnswersInfo: (context, payload) => {
 			context.commit("SET_ANSWERS_INFO", payload)
 		}
-	},	// end of action-lp2new --------------------------------------
-} // end of lp2new-module --------------------------------------
+	},	// end of action --------------------------------------
+}) // end of module --------------------------------------
