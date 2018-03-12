@@ -6,16 +6,16 @@
 				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-6">
-						<q-card title="Primary Home" img-src="img/primaryhome.jpg" @click.native="setAnswerToQuestion('QFEstimatedvalue', setHomeUse('primary'))"></q-card>
+						<q-card title="Primary Home" img-src="img/primaryhome.jpg" @click.native="setAnswerToQuestion('QFEstimatedvalue', set_answersInfo({homeUse:'primary'}))"></q-card>
 					</div>
 					<div class="col-md-6">
-						<q-card title="Second Home" img-src="img/secondhome.jpg" @click.native="setAnswerToQuestion('QFEstimatedvalue', setHomeUse('secondary_vactn'))"></q-card>
+						<q-card title="Second Home" img-src="img/secondhome.jpg" @click.native="setAnswerToQuestion('QFEstimatedvalue', set_answersInfo({homeUse:'secondary_vactn'}))"></q-card>
 					</div>
 					<div class="col-md-6">
-						<q-card title="Investment Property" img-src="img/investmentprop.jpg" @click.native="setAnswerToQuestion('QFHomeagentfound', setHomeUse('investment'))"></q-card>
+						<q-card title="Investment Property" img-src="img/investmentprop.jpg" @click.native="setAnswerToQuestion('QFHomeagentfound', set_answersInfo({homeUse:'investment'}))"></q-card>
 					</div>
 					<div class="col-md-6">
-						<q-card title="Vacation Rental" img-src="img/vacationprop.jpg" @click.native="setAnswerToQuestion('QFHomeagentfound', setHomeUse('secondary_vactn'))"></q-card>
+						<q-card title="Vacation Rental" img-src="img/vacationprop.jpg" @click.native="setAnswerToQuestion('QFHomeagentfound', set_answersInfo({homeUse:'secondary_vactn'}))"></q-card>
 					</div>
 				</div>
 			</div>
@@ -25,6 +25,7 @@
 <script>
 	import Question from '@/components/resources/Question'
 	import QCard from '@/components/resources/QCard'
+	import { mapActions } from 'vuex'
 	export default {
 		name: 'q-f-primaryuse',
 		data() {
@@ -33,10 +34,13 @@
 	        }
 	    },
 	    methods: {
-	    	setHomeUse: function(payload) {
-	    		this.$store.dispatch("setHomeUse", payload)
-	    		return true
-	    	},
+	    	...mapActions('lp2new', [
+	    		'setAnswersInfo',
+			]),
+			set_answersInfo: function(payload) {
+				this.setAnswersInfo(payload)
+				return true
+			},
 	    },
 	    components: {
 	    	Question,

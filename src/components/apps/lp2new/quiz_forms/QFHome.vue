@@ -6,10 +6,10 @@
 				<div class="quiz-title">{{questionTitle}}</div>
 				<div class="row">
 					<div class="col-md-6">
-						<q-card title="Refinance" img-src="img/refinance.jpg" @click.native="setAnswerToQuestion('QFAdditionalcash', setLoanInterest({loanInterest:'PP_REFI',loanType:'refinance'}))"></q-card>
+						<q-card title="Refinance" img-src="img/refinance.jpg" @click.native="setAnswerToQuestion('QFAdditionalcash', set_answersInfo({loanInterest:'PP_REFI',loanType:'refinance'}))"></q-card>
 					</div>
 					<div class="col-md-6">
-						<q-card title="New Home" img-src="img/newhouse.jpg" @click.native="setAnswerToQuestion('QFZipcode', setLoanInterest({loanInterest:'PP_NEWHOME',loanType:'purchase'}))"></q-card>
+						<q-card title="New Home" img-src="img/newhouse.jpg" @click.native="setAnswerToQuestion('QFZipcode', set_answersInfo({loanInterest:'PP_NEWHOME',loanType:'purchase'}))"></q-card>
 					</div>
 				</div>
 			</div>
@@ -19,6 +19,7 @@
 <script>
 	import Question from '@/components/resources/Question'
 	import QCard from '@/components/resources/QCard'
+	import { mapActions } from 'vuex'
 	export default {
 		name: 'q-f-home',
 		data() {
@@ -27,8 +28,11 @@
 			}
 		},
 		methods: {
-			setLoanInterest: function(payload) {
-				this.$store.dispatch("setLoanInterest", payload)
+			...mapActions('lp2new', [
+				'setAnswersInfo',
+			]),
+			set_answersInfo: function(payload) {
+				this.setAnswersInfo(payload)
 				return true
 			},
 		},

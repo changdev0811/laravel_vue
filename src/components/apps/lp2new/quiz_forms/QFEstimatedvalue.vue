@@ -10,9 +10,9 @@
 							<q-select
 								q-name="this"
 								:options="homevalue_options"
-								:q-value="refiHomeValue"
+								:q-value="ansGrp.refiHomeValue"
 								:q-validate="'required'"
-								:on-change="(e) => {refiHomeValue = e.target.value}"
+								:on-change="(e) => {ansGrp.refiHomeValue = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -21,7 +21,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFFirstandsecond', setRefiHomeValue)">
+							@click.native="setAnswerToQuestion('QFFirstandsecond', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -34,29 +34,33 @@
 	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-estimatedvalue',
 		computed: {
 	        // Get the homevalue_options from the store.
-	        homevalue_options: {
-	            get: function() {
-	            	return this.$store.getters.getHomevalueOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	homevalue_options: state => state.homevalue_options
+	        })
 	    },
 		data() {
 	        return {
 	        	questionTitle: 'What is the estimated value of your home?',
-	        	refiHomeValue: '',
+	        	ansGrp: {	
+					refiHomeValue: '',
+				},
 	        }
 	    },
 	    methods: {
-	    	setRefiHomeValue: function() {
-	    		if (this.refiHomeValue == '') {
-	    			return false
+	    	...mapActions('lp2new', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
 	    		}
-	    		var payload = this.refiHomeValue
-	    		this.$store.dispatch("setRefiHomeValue", payload)
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
 	    		return true
 	    	},
 	    },

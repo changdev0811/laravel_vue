@@ -13,7 +13,7 @@
 						</q-button>
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="setAnswerToQuestion('QFRefMortgageInfo')">
+							@click.native="setAnswerToQuestion('QFRefMortgageTwoInfo')">
 							1st &amp; 2nd
 						</q-button>
 					</div>

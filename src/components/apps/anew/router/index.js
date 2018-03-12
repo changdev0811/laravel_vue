@@ -4,6 +4,7 @@ import QFRefHomeLocation from '@/components/apps/anew/quiz_forms/QFRefHomeLocati
 import QFRefHomeValue from '@/components/apps/anew/quiz_forms/QFRefHomeValue'
 import QFRefMortgages from '@/components/apps/anew/quiz_forms/QFRefMortgages'
 import QFRefMortgageInfo from '@/components/apps/anew/quiz_forms/QFRefMortgageInfo'
+import QFRefMortgageTwoInfo from '@/components/apps/anew/quiz_forms/QFRefMortgageTwoInfo'
 import QFNhHomeLocation from '@/components/apps/anew/quiz_forms/QFNhHomeLocation'
 import QFNhHomeType from '@/components/apps/anew/quiz_forms/QFNhHomeType'
 import QFNhHomeUse from '@/components/apps/anew/quiz_forms/QFNhHomeUse'
@@ -42,6 +43,11 @@ export default [
 		path: 'refmortgageinfo',
 		name: 'QFRefMortgageInfo',
 		component: QFRefMortgageInfo
+	},
+	{
+		path: 'refmortgagetwoinfo',
+		name: 'QFRefMortgageTwoInfo',
+		component: QFRefMortgageTwoInfo
 	},
 	{
 		path: 'nhhomelocation',

@@ -21,10 +21,10 @@
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
-								:q-value= "refiZipcode"
+								:q-value= "ansGrp.refiZipcode"
 								:q-mask="'99999'"
 								:q-validate="'required|numeric'"
-								:on-input="(e) => {refiZipcode = e.target.value}"
+								:on-input="(e) => {ansGrp.refiZipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -33,7 +33,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFHometype', setRefiZipcode)">
+							@click.native="setAnswerToQuestion('QFHometype', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -47,30 +47,34 @@
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QInput from '@/components/resources/QInput'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-refiinfo',
 		computed: {
 	        // Get the states_options from the store.
-	        states_options: {
-	            get: function() {
-	            	return this.$store.getters.getStatesOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	states_options: state => state.states_options
+	        })
 	    },
 		data() {
 			return {
 				questionTitle: 'Tell us about the home you want to refinance!',
 				refiStates: '',
-				refiZipcode: '',
+				ansGrp: {
+					refiZipcode: '',
+				},
 	        }
 	    },
 	    methods: {
-	    	setRefiZipcode: function() {
-				if (this.refiZipcode == '' || this.refiStates == '') {
-					return false
-				}	    		
-	    		var payload = this.refiZipcode
-	    		this.$store.dispatch("setRefiZipcode", payload)
+	    	...mapActions('lp2new', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
 	    		return true
 	    	},
 	    },

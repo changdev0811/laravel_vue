@@ -9,11 +9,11 @@
 							<q-input
 								q-name="Zipcode"
 								q-placeholder="Zipcode:"
-								:q-value="nhZipcode"
+								:q-value="ansGrp.nhZipcode"
 								:q-mask="'99999'"
 								q-input-icon="map-marker"
 								:q-validate="'required|numeric'"
-								:on-input="(e) => {nhZipcode = e.target.value}"
+								:on-input="(e) => {ansGrp.nhZipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -23,7 +23,7 @@
 						<q-button
 							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFNhHomeType')">
+							@click.native="setAnswerToQuestion('QFNhHomeType', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -36,13 +36,29 @@
 	import Question from '@/components/resources/Question'
 	import QInput from '@/components/resources/QInput'
 	import QButton from '@/components/resources/QButton'
+	import { mapActions } from 'vuex'
 	export default {
 		name: 'q-f-nh-home-location',
 		data() {
 	        return {
 	        	questionTitle: 'Where is this home located?',
-	        	nhZipcode: '',
+	        	ansGrp: {	
+	        		nhZipcode: '',
+	        	},
 	        }
+	    },
+	    methods: {
+	    	...mapActions('anew', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
+	    	},
 	    },
 		components: {
 			Question,

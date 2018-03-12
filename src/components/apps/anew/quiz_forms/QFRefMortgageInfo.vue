@@ -11,10 +11,10 @@
 							<q-select
 								q-name="Balance"
 								:options="homevalue_options"
-								:q-value="firstMorBalance"
+								:q-value="ansGrp.firstMorBalance"
 								:q-validate="'required'"
 								q-select-icon="dollar"
-								:on-change="(e) => {firstMorBalance = e.target.value}"
+								:on-change="(e) => {ansGrp.firstMorBalance = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -28,10 +28,10 @@
 							<q-select
 								q-name="Rate"
 								:options="downpayment_options"
-								:q-value="firstMorRate"
+								:q-value="ansGrp.firstMorRate"
 								:q-validate="'required'"
 								q-select-icon="percent"
-								:on-change="(e) => {firstMorRate = e.target.value}"
+								:on-change="(e) => {ansGrp.firstMorRate = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -45,10 +45,10 @@
 							<q-select
 								q-name="RateType"
 								:options="loantype_options"
-								:q-value="refiLoanType"
+								:q-value="ansGrp.refiLoanType"
 								:q-validate="'required'"
 								q-select-icon="asterisk"
-								:on-change="(e) => {refiLoanType = e.target.value}"
+								:on-change="(e) => {ansGrp.refiLoanType = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 						<q-button
 							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFCreditRating')">
+							@click.native="setAnswerToQuestion('QFCreditRating', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -71,35 +71,41 @@
 	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-ref-mortgage-info',
 		computed: {
 	        // Get the homevalue_options from the store.
-	        homevalue_options: {
-	            get: function() {
-	            	return this.$store.getters.getHomevalueOptions
-	            }
-	        },
 	        // Get the downpayment_options from the store.
-	        downpayment_options: {
-	            get: function() {
-	            	return this.$store.getters.getDownpaymentOptions
-	            }
-	        },
 	        // Get the loantype_options from the store.
-	        loantype_options: {
-	            get: function() {
-	            	return this.$store.getters.getLoantypeOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	homevalue_options: state => state.homevalue_options,
+	        	downpayment_options: state => state.downpayment_options,
+	        	loantype_options: state => state.loantype_options,
+	        })
 	    },
 		data() {
 			return {
-				firstMorBalance: '',
-	        	firstMorRate: '',
-	        	refiLoanType: '',
+				ansGrp: {
+					firstMorBalance: '',
+		        	firstMorRate: '',
+		        	refiLoanType: '',
+		        },
 			}
 		},
+		methods: {
+	    	...mapActions('anew', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
+	    	},
+	    },
 		components: {
 			Question,
 			QButton,

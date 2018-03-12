@@ -9,14 +9,14 @@
 					--><div class="col-md-2">
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="() => {homeFound = 'yes'}">
+							@click.native="() => {ansGrp.homeFound = 'yes'}">
 							yes
 						</q-button>
 					</div><!--
 					--><div class="col-md-2">
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="() => {homeFound = 'no'}">
+							@click.native="() => {ansGrp.homeFound = 'no'}">
 							no
 						</q-button>
 					</div>
@@ -28,14 +28,14 @@
 					--><div class="col-md-2">
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="() => {workWAgent = 'yes'}">
+							@click.native="() => {ansGrp.workWAgent = 'yes'}">
 							yes
 						</q-button>
 					</div><!--
 					--><div class="col-md-2">
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="() => {workWAgent = 'no'}">
+							@click.native="() => {ansGrp.workWAgent = 'no'}">
 							no
 						</q-button>
 					</div>
@@ -49,10 +49,10 @@
 							<q-select
 								q-name="this"
 								:options="timeframe_options"
-								:q-value="nhTimeFrame"
+								:q-value="ansGrp.nhTimeFrame"
 								:q-validate="'required'"
 								q-select-icon="calendar"
-								:on-change="(e) => {nhTimeFrame = e.target.value}"
+								:on-change="(e) => {ansGrp.nhTimeFrame = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 						<q-button
 							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFNhHomeValue')">
+							@click.native="setAnswerToQuestion('QFNhHomeValue', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -75,23 +75,37 @@
 	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-nh-home-found',
 		computed: {
 	        // Get the timeframe_options from the store.
-	        timeframe_options: {
-	            get: function() {
-	            	return this.$store.getters.getTimeframeOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	timeframe_options: state => state.timeframe_options
+	        })
 	    },
 		data() {
 			return {
-				homeFound: '',
-	        	workWAgent: '',
-				nhTimeFrame: '',
+				ansGrp: {
+					homeFound: '',
+		        	workWAgent: '',
+					nhTimeFrame: '',
+				},
 			}
 		},
+		methods: {
+	    	...mapActions('anew', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
+	    	},
+	    },
 		components: {
 			Question,
 			QButton,

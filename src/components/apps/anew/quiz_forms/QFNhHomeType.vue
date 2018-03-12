@@ -7,22 +7,22 @@
 					<div class="col-md-6 col-md-offset-3">
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="setAnswerToQuestion('QFNhHomeUse')">
+							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'SINGLE_FAM'}))">
 							single family
 						</q-button>
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="setAnswerToQuestion('QFNhHomeUse')">
+							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'MULTI_FAM'}))">
 							multi family
 						</q-button>
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="setAnswerToQuestion('QFNhHomeUse')">
+							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'TOWNHOUSE'}))">
 							town house
 						</q-button>
 						<q-button
 							q-btn-color='#38B4CD'
-							@click.native="setAnswerToQuestion('QFNhHomeUse')">
+							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'CONDO'}))">
 							condo
 						</q-button>
 					</div>
@@ -34,6 +34,7 @@
 <script>
 	import Question from '@/components/resources/Question'
 	import QButton from '@/components/resources/QButton'
+	import { mapActions } from 'vuex'
 	export default {
 		name: 'q-f-nh-home-type',
 		data() {
@@ -41,6 +42,15 @@
 				questionTitle: 'Tell us about your new home',
 			}
 		},
+		methods: {
+	    	...mapActions('anew', [
+				'setAnswersInfo',
+			]),
+			set_answersInfo: function(payload) {
+				this.setAnswersInfo(payload)
+				return true
+			},
+	    },
 		components: {
 			Question,
 			QButton,

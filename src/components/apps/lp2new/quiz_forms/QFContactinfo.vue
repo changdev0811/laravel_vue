@@ -10,11 +10,11 @@
 							<q-input
 								q-name="FirstName"
 								q-placeholder="First Name:"
-								:q-value="firstName"
+								:q-value="ansGrp.contactInfo.firstName"
 								:q-mask="''"
 								:q-validate="'required|alpha'"
 								q-input-icon="user"
-								:on-input="(e) => {firstName = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.firstName = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -23,11 +23,11 @@
 							<q-input
 								q-name="LastName"
 								q-placeholder="Last Name:"
-								:q-value="lastName"
+								:q-value="ansGrp.contactInfo.lastName"
 								:q-mask="''"
 								:q-validate="'required|alpha'"
 								q-input-icon="user"
-								:on-input="(e) => {lastName = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.lastName = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -38,11 +38,11 @@
 							<q-input
 								q-name="Address"
 								q-placeholder="Address:"
-								:q-value="address"
+								:q-value="ansGrp.contactInfo.address"
 								:q-mask="''"
 								:q-validate="'required'"
 								q-input-icon="home"
-								:on-input="(e) => {address = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.address = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -51,11 +51,11 @@
 							<q-input
 								q-name="City"
 								q-placeholder="City:"
-								:q-value="city"
+								:q-value="ansGrp.contactInfo.city"
 								:q-mask="''"
 								:q-validate="'required'"
 								q-input-icon="home"
-								:on-input="(e) => {city = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.city = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -66,10 +66,10 @@
 							<q-select
 								q-name="States"
 								:options="states_options"
-								:q-value="states"
+								:q-value="ansGrp.contactInfo.states"
 								:q-validate="'required'"
 								q-select-icon="home"
-								:on-change="(e) => {states = e.target.value}"
+								:on-change="(e) => {ansGrp.contactInfo.states = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -78,11 +78,11 @@
 							<q-input
 								q-name="Zip"
 								q-placeholder="Zip:"
-								:q-value="zipcode"
+								:q-value="ansGrp.contactInfo.zipcode"
 								:q-mask="'99999'"
 								:q-validate="'required|numeric'"
 								q-input-icon="home"
-								:on-input="(e) => {zipcode = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.zipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -93,11 +93,11 @@
 							<q-input
 								q-name="Email"
 								q-placeholder="Email:"
-								:q-value="priEmail"
+								:q-value="ansGrp.contactInfo.priEmail"
 								:q-mask="''"
 								:q-validate="'required|email'"
 								q-input-icon="envelope"
-								:on-input="(e) => {priEmail = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.priEmail = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -106,11 +106,11 @@
 							<q-input
 								q-name="Phone"
 								q-placeholder="Primary Phone:"
-								:q-value="priPhone"
+								:q-value="ansGrp.contactInfo.priPhone"
 								:q-mask="'(999) 999-9999'"
 								:q-validate="'required'"
 								q-input-icon="phone"
-								:on-input="(e) => {priPhone = e.target.value.match(/\d+/g).join('')}"
+								:on-input="(e) => {ansGrp.contactInfo.priPhone = e.target.value.match(/\d+/g).join('')}"
 							></q-input>
 						</div>
 					</div>
@@ -157,34 +157,35 @@
 	import QInput from '@/components/resources/QInput'
 	import https from 'https'
 	import querystring from 'querystring'
+	import { mapState, mapActions, mapGetters } from 'vuex'
 	export default {
 		name: 'q-f-contactinfo',
 		computed: {
 	        // Get the states_options from the store.
-	        states_options: {
-	            get: function() {
-	            	return this.$store.getters.getStatesOptions
-	            }
-	        },
-	        submitData: {
-	        	get: function() {
-	        		return this.$store.getters.getSubmitData
-	        	}
-	        },
+	        ...mapState('common', {
+	        	states_options: state => state.states_options,
+	        }),
+	        ...mapGetters('lp2new', [
+	        	'getSubmitData',
+	        ]),
 	    },
 		data() {
 			return {
 				questionTitle: 'Please complete the following form to see your results',
 				source: 'smartfha.com',
 
-				firstName: '',
-	    		lastName: '',
-	    		address: '',
-	    		city: '',
-	    		states: '',
-	    		zipcode: '',
-	    		priEmail: '',
-	    		priPhone: '',
+				ansGrp: {
+					contactInfo: {
+						firstName: '',
+			    		lastName: '',
+			    		address: '',
+			    		city: '',
+			    		states: '',
+			    		zipcode: '',
+			    		priEmail: '',
+			    		priPhone: '',
+			    	},
+		    	},
 
 	    		hiddenData: {
 		    		leadidToken: '08247749-A7F6-F0FC-6EB5-563C976001BC',
@@ -201,31 +202,34 @@
 			}
 		},
 		methods: {
+			...mapActions('lp2new', [
+				'setAnswersInfo',
+			]),
 			purchaseSubmit() {
-				var subData = this.submitData
-				var hidData = this.hiddenData
+				var subData = this.getSubmitData,
+					hidData = this.hiddenData
 
-				var loanInterest = subData.loanInterest
-				var loanType = subData.loanType
-				var creditType = subData.creditType
-				var refiZipcode = subData.refiZipcode
-				var homeType = subData.homeType
-				var homeUse = subData.homeUse
-				var refiHomeValue = subData.refiHomeValue
-				var firstMorBalance = subData.firstMorBalance
-				var firstMorRate = subData.firstMorRate
-				var secondMorBalance = subData.secondMorBalance
-				var secondMorRate = subData.secondMorRate
-				var refiLoanType = subData.refiLoanType
-				var additionalCash = subData.additionalCash
-				var contactInfo = subData.contactInfo
-				var estHomeValue = subData.estHomeValue
-				var estDownpayment = subData.estDownpayment
-				var estLoanType = subData.estLoanType
-				var nhZipcode = subData.nhZipcode
-				var homeFound = subData.homeFound
-				var workWAgent = subData.workWAgent
-				var nhTimeFrame = subData.nhTimeFrame
+				var loanInterest = subData.loanInterest,
+					loanType = subData.loanType,
+					creditType = subData.creditType,
+					refiZipcode = subData.refiZipcode,
+					homeType = subData.homeType,
+					homeUse = subData.homeUse,
+					refiHomeValue = subData.refiHomeValue,
+					firstMorBalance = subData.firstMorBalance,
+					firstMorRate = subData.firstMorRate,
+					secondMorBalance = subData.secondMorBalance,
+					secondMorRate = subData.secondMorRate,
+					refiLoanType = subData.refiLoanType,
+					additionalCash = subData.additionalCash,
+					contactInfo = subData.contactInfo,
+					estHomeValue = subData.estHomeValue,
+					estDownpayment = subData.estDownpayment,
+					estLoanType = subData.estLoanType,
+					nhZipcode = subData.nhZipcode,
+					homeFound = subData.homeFound,
+					workWAgent = subData.workWAgent,
+					nhTimeFrame = subData.nhTimeFrame
 
 				if (loanInterest == 'PP_REFI') {
 					var channel = '3'
@@ -418,25 +422,16 @@
 					}
 				})
 			},
-			setContactInfo() {
-				if (this.firstName == '' || this.lastName == '' || this.address == '' || this.city == '' || this.states == '' || this.zipcode == '' || this.priEmail == '' || this.priPhone == '') {
-					return false
-				}
-				var payload = {
-					firstName: this.firstName,
-					lastName: this.lastName,
-					address: this.address,
-					city: this.city,
-					states: this.states,
-					zipcode: this.zipcode,
-					priEmail: this.priEmail,
-					priPhone: this.priPhone,
-				}
-				this.$store.dispatch("setContactInfo", payload)
-				return true
+			set_answersInfo() {
+				for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
 			},
 			finalRequest() {
-				if (!this.setContactInfo()) {
+				if (!this.set_answersInfo()) {
 					alert('Please enter all your information correctly.')
 					return
 				}

@@ -9,11 +9,11 @@
 							<q-input
 								q-name="FirstName"
 								q-placeholder="First Name:"
-								:q-value="firstName"
+								:q-value="ansGrp.contactInfo.firstName"
 								:q-mask="''"
 								:q-validate="'required|alpha'"
 								q-input-icon="user"
-								:on-input="(e) => {firstName = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.firstName = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -22,11 +22,11 @@
 							<q-input
 								q-name="LastName"
 								q-placeholder="Last Name:"
-								:q-value="lastName"
+								:q-value="ansGrp.contactInfo.lastName"
 								:q-mask="''"
 								:q-validate="'required|alpha'"
 								q-input-icon="user"
-								:on-input="(e) => {lastName = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.lastName = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -37,11 +37,11 @@
 							<q-input
 								q-name="Address"
 								q-placeholder="Address:"
-								:q-value="address"
+								:q-value="ansGrp.contactInfo.address"
 								:q-mask="''"
 								:q-validate="'required'"
 								q-input-icon="home"
-								:on-input="(e) => {address = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.address = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -50,11 +50,11 @@
 							<q-input
 								q-name="City"
 								q-placeholder="City:"
-								:q-value="city"
+								:q-value="ansGrp.contactInfo.city"
 								:q-mask="''"
 								:q-validate="'required'"
 								q-input-icon="home"
-								:on-input="(e) => {city = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.city = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -65,10 +65,10 @@
 							<q-select
 								q-name="States"
 								:options="states_options"
-								:q-value="states"
+								:q-value="ansGrp.contactInfo.states"
 								:q-validate="'required'"
 								q-select-icon="home"
-								:on-change="(e) => {states = e.target.value}"
+								:on-change="(e) => {ansGrp.contactInfo.states = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -77,11 +77,11 @@
 							<q-input
 								q-name="Zip"
 								q-placeholder="Zip:"
-								:q-value="zipcode"
+								:q-value="ansGrp.contactInfo.zipcode"
 								:q-mask="'99999'"
 								:q-validate="'required|numeric'"
 								q-input-icon="home"
-								:on-input="(e) => {zipcode = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.zipcode = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -92,11 +92,11 @@
 							<q-input
 								q-name="Email"
 								q-placeholder="Email:"
-								:q-value="priEmail"
+								:q-value="ansGrp.contactInfo.priEmail"
 								:q-mask="''"
 								:q-validate="'required|email'"
 								q-input-icon="envelope"
-								:on-input="(e) => {priEmail = e.target.value}"
+								:on-input="(e) => {ansGrp.contactInfo.priEmail = e.target.value}"
 							></q-input>
 						</div>
 					</div>
@@ -105,11 +105,11 @@
 							<q-input
 								q-name="Phone"
 								q-placeholder="Primary Phone:"
-								:q-value="priPhone"
+								:q-value="ansGrp.contactInfo.priPhone"
 								:q-mask="'(999) 999-9999'"
 								:q-validate="'required'"
 								q-input-icon="phone"
-								:on-input="(e) => {priPhone = e.target.value.match(/\d+/g).join('')}"
+								:on-input="(e) => {ansGrp.contactInfo.priPhone = e.target.value.match(/\d+/g).join('')}"
 							></q-input>
 						</div>
 					</div>
@@ -133,30 +133,39 @@
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QInput from '@/components/resources/QInput'
+	import { mapState, mapActions, mapGetters } from 'vuex'
 	export default {
 		name: 'q-f-email-submit',
 		computed: {
 	        // Get the states_options from the store.
-	        states_options: {
-	            get: function() {
-	            	return this.$store.getters.getStatesOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	states_options: state => state.states_options,
+	        }),
+	        ...mapGetters('anew', [
+	        	'getSubmitData',
+	        ]),
 	    },
 		data() {
 			return {
 				questionTitle: 'Please complete the following form to see your results',
-				firstName: '',
-	    		lastName: '',
-	    		address: '',
-	    		city: '',
-	    		states: '',
-	    		zipcode: '',
-	    		priEmail: '',
-	    		priPhone: '',
+				ansGrp: {
+					contactInfo: {
+						firstName: '',
+			    		lastName: '',
+			    		address: '',
+			    		city: '',
+			    		states: '',
+			    		zipcode: '',
+			    		priEmail: '',
+			    		priPhone: '',
+			    	},
+		    	},
 			}
 		},
 		methods: {
+			...mapActions('anew', [
+				'setAnswersInfo',
+			]),
 			emailVerify() {
 				// alert("success verify")
 				const url = '/api.smartfha/webcommon/val/xverify-email.php'
@@ -209,25 +218,16 @@
 					}
 				})
 			},
-			setContactInfo() {
-				if (this.firstName == '' || this.lastName == '' || this.address == '' || this.city == '' || this.states == '' || this.zipcode == '' || this.priEmail == '' || this.priPhone == '') {
-					return false
-				}
-				var payload = {
-					firstName: this.firstName,
-					lastName: this.lastName,
-					address: this.address,
-					city: this.city,
-					states: this.states,
-					zipcode: this.zipcode,
-					priEmail: this.priEmail,
-					priPhone: this.priPhone,
-				}
-				this.$store.dispatch("setContactInfo", payload)
-				return true
+			set_answersInfo() {
+				for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
 			},
 			finalRequest() {
-				if (!this.setContactInfo()) {
+				if (!this.set_answersInfo()) {
 					alert('Please enter all your information correctly.')
 					return
 				}

@@ -10,7 +10,7 @@
 						<q-card title="1st only" img-src="img/1stmort.jpg" @click.native="setAnswerToQuestion('QFMortgagebalance')"></q-card>
 					</div>
 					<div class="col-md-6">
-						<q-card title="1st & 2nd" img-src="img/2ndmort.jpg" @click.native="setAnswerToQuestion('QFMortgagetwobalance')"></q-card>
+						<q-card title="1st &amp; 2nd" img-src="img/2ndmort.jpg" @click.native="setAnswerToQuestion('QFMortgagetwobalance')"></q-card>
 					</div>
 				</div>
 			</div>

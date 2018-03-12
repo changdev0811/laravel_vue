@@ -7,19 +7,19 @@
 				<div class="quiz-title">What is your credit status?</div>
 				<div class="row">
 					<div class="col-md-4 col-md-offset-2">
-						<q-card title="Excellent" img-src="img/credit-excellent2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', setCreditType('EXCELLENT'))"></q-card>
+						<q-card title="Excellent" img-src="img/credit-excellent2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', set_answersInfo({creditType:'EXCELLENT'}))"></q-card>
 					</div>
 					<div class="col-md-4">
-						<q-card title="Good" img-src="img/credit-good2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', setCreditType('GOOD'))"></q-card>
+						<q-card title="Good" img-src="img/credit-good2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', set_answersInfo({creditType:'GOOD'}))"></q-card>
 					</div>
 					<div class="col-md-4">
-						<q-card title="Average" img-src="img/credit-average2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', setCreditType('AVERAGE'))"></q-card>
+						<q-card title="Average" img-src="img/credit-average2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', set_answersInfo({creditType:'AVERAGE'}))"></q-card>
 					</div>
 					<div class="col-md-4">
-						<q-card title="Fair" img-src="img/credit-fair2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', setCreditType('FAIR'))"></q-card>
+						<q-card title="Fair" img-src="img/credit-fair2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', set_answersInfo({creditType:'FAIR'}))"></q-card>
 					</div>
 					<div class="col-md-4">
-						<q-card title="Poor" img-src="img/credit-poor2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', setCreditType('POOR'))"></q-card>
+						<q-card title="Poor" img-src="img/credit-poor2.jpg" @click.native="setAnswerToQuestion('QFContactinfo', set_answersInfo({creditType:'POOR'}))"></q-card>
 					</div>
 				</div>
 			</div>
@@ -29,6 +29,7 @@
 <script>
 	import Question from '@/components/resources/Question'
 	import QCard from '@/components/resources/QCard'
+	import { mapActions } from 'vuex'
 	export default {
 		name: 'q-f-creditstatus',
 		data() {
@@ -38,8 +39,11 @@
 			}
 		},
 		methods: {
-			setCreditType: function(payload) {
-				this.$store.dispatch("setCreditType", payload)
+			...mapActions('lp2new', [
+				'setAnswersInfo',
+			]),
+			set_answersInfo: function(payload) {
+				this.setAnswersInfo(payload)
 				return true
 			},
 		},

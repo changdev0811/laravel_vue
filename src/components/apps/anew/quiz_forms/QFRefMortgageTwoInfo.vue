@@ -1,6 +1,5 @@
 <template>
-	<!-- form 11 -->
-	<div class="q-f-mortgagetwobalance">
+	<div class="q-f-ref-mortgage-info">
 		<question>
 			<div class="question" slot-scope="{ setAnswerToQuestion }">
 				<div class="row vertical-middle" id="">
@@ -90,16 +89,17 @@
 				</div>
 				<div class="row btn-wrapper">
 					<div class="col-md-4 col-md-offset-4">
-						<q-button 
+						<q-button
+							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFCreditstatus', set_answersInfo)">
+							@click.native="setAnswerToQuestion('QFCreditRating', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
 				</div>
 			</div>
 		</question>
-	</div><!-- end of form 11 -->
+	</div>
 </template>
 <script>
 	import Question from '@/components/resources/Question'
@@ -107,7 +107,7 @@
 	import QSelect from '@/components/resources/QSelect'
 	import { mapState, mapActions } from 'vuex'
 	export default {
-		name: 'q-f-mortgagetwobalance',
+		name: 'q-f-ref-mortgage-info',
 		computed: {
 	        // Get the homevalue_options from the store.
 	        // Get the downpayment_options from the store.
@@ -116,21 +116,21 @@
 	        	homevalue_options: state => state.homevalue_options,
 	        	downpayment_options: state => state.downpayment_options,
 	        	loantype_options: state => state.loantype_options,
-	        }),
+	        })
 	    },
 		data() {
-	        return {
-	        	ansGrp: {
-		        	firstMorBalance: '',
+			return {
+				ansGrp: {
+					firstMorBalance: '',
 		        	firstMorRate: '',
-		        	secondMorBalance: '',
+		        	refiLoanType: '',
 		        	secondMorRate: '',
 		        	refiLoanType: '',
 		        },
-	        }
-	    },
-	    methods: {
-	    	...mapActions('lp2new', [
+			}
+		},
+		methods: {
+	    	...mapActions('anew', [
 	    		'setAnswersInfo',
 	    	]),
 	    	set_answersInfo: function() {
@@ -142,11 +142,11 @@
 	    		return true
 	    	},
 	    },
-	    components: {
-	    	Question,
-	    	QButton,
-	    	QSelect,
-	    }
+		components: {
+			Question,
+			QButton,
+			QSelect,
+		},
 	}
 </script>
 <style lang="sass" scoped>

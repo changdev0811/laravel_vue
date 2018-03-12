@@ -11,10 +11,10 @@
 							<q-select
 								q-name="Balance"
 								:options="homevalue_options"
-								:q-value="refHomeValue"
+								:q-value="ansGrp.refiHomeValue"
 								:q-validate="'required'"
 								q-select-icon="dollar"
-								:on-change="(e) => {refHomeValue = e.target.value}"
+								:on-change="(e) => {ansGrp.refiHomeValue = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -24,7 +24,7 @@
 						<q-button
 							q-btn-color="#38B4CD"
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFRefMortgages')">
+							@click.native="setAnswerToQuestion('QFRefMortgages', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -37,22 +37,36 @@
 	import Question from '@/components/resources/Question'
 	import QSelect from '@/components/resources/QSelect'
 	import QButton from '@/components/resources/QButton'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-ref-home-value',
 		computed: {
 	        // Get the homevalue_options from the store.
-	        homevalue_options: {
-	            get: function() {
-	            	return this.$store.getters.getHomevalueOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	homevalue_options: state => state.homevalue_options
+	        })
 	    },
 		data() {
 			return {
 				questionTitle: 'Where is this home located?',
-				refHomeValue: '',
+				ansGrp: {	
+					refiHomeValue: '',
+				},
 			}
 		},
+		methods: {
+	    	...mapActions('anew', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
+	    		}
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
+	    		return true
+	    	},
+	    },
 		components: {
 			Question,
 			QSelect,

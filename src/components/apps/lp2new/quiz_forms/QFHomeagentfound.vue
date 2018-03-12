@@ -11,14 +11,14 @@
 						<q-card 
 							title="Yes" 
 							img-src="img/yes.png"
-							@click.native="() => {homeFound = 'yes'}">
+							@click.native="() => {ansGrp.homeFound = 'yes'}">
 						</q-card>
 					</div><!--
 					--><div class="col-md-2">
 						<q-card 
 							title="No" 
 							img-src="img/no.png"
-							@click.native="() => {homeFound = 'no'}">
+							@click.native="() => {ansGrp.homeFound = 'no'}">
 						</q-card>
 					</div>
 				</div>
@@ -30,14 +30,14 @@
 						<q-card 
 							title="Yes" 
 							img-src="img/yes.png"
-							@click.native="() => {workWAgent = 'yes'}">
+							@click.native="() => {ansGrp.workWAgent = 'yes'}">
 						</q-card>
 					</div><!--
 					--><div class="col-md-2">
 						<q-card 
 							title="No" 
 							img-src="img/no.png"
-							@click.native="() => {workWAgent = 'no'}">
+							@click.native="() => {ansGrp.workWAgent = 'no'}">
 						</q-card>
 					</div>
 				</div>
@@ -50,9 +50,9 @@
 							<q-select
 								q-name="this"
 								:options="timeframe_options"
-								:q-value="nhTimeFrame"
+								:q-value="ansGrp.nhTimeFrame"
 								:q-validate="'required'"
-								:on-change="(e) => {nhTimeFrame = e.target.value}"
+								:on-change="(e) => {ansGrp.nhTimeFrame = e.target.value}"
 							></q-select>
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 					<div class="col-md-4 col-md-offset-4">
 						<q-button 
 							q-btn-icon="glyphicon-chevron-right"
-							@click.native="setAnswerToQuestion('QFEstimatedvaluepayment', setNhAgentInfo)">
+							@click.native="setAnswerToQuestion('QFEstimatedvaluepayment', set_answersInfo)">
 							next 
 						</q-button>
 					</div>
@@ -75,34 +75,34 @@
 	import QButton from '@/components/resources/QButton'
 	import QSelect from '@/components/resources/QSelect'
 	import QCard from '@/components/resources/QCard'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'q-f-homeagentfound',
 		computed: {
 	        // Get the timeframe_options from the store.
-	        timeframe_options: {
-	            get: function() {
-	            	return this.$store.getters.getTimeframeOptions
-	            }
-	        },
+	        ...mapState('common', {
+	        	timeframe_options: state => state.timeframe_options,
+	        }),
 	    },
 		data() {
 	        return {
-	        	homeFound: '',
-	        	workWAgent: '',
-	        	nhTimeFrame: '',
+	        	ansGrp: {
+					homeFound: '',
+		        	workWAgent: '',
+					nhTimeFrame: '',
+				},
 	        }
 	    },
 	    methods: {
-	    	setNhAgentInfo: function() {
-	    		if (this.homeFound == '' || this.workWAgent == '' || this.nhTimeFrame == '') {
-	    			return false
+	    	...mapActions('lp2new', [
+	    		'setAnswersInfo',
+	    	]),
+	    	set_answersInfo: function() {
+	    		for (const [key, value] of Object.entries(this.ansGrp)) {
+	    			if (value == '') return false
 	    		}
-	    		var payload = {
-	    			homeFound: this.homeFound,
-	    			workWAgent: this.workWAgent,
-	    			nhTimeFrame: this.nhTimeFrame
-	    		}
-	    		this.$store.dispatch("setNhAgentInfo", payload)
+	    		var payload = this.ansGrp
+	    		this.setAnswersInfo(payload)
 	    		return true
 	    	},
 	    },
