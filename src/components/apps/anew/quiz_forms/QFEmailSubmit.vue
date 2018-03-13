@@ -170,7 +170,7 @@
 				// alert("success verify")
 				const url = '/api.smartfha/webcommon/val/xverify-email.php'
 				const form = new FormData()
-				form.append('email', this.priEmail)
+				form.append('email', this.ansGrp.contactInfo.priEmail)
 				form.append('source', this.source)
 				
 				this.axios.post(url,
@@ -203,7 +203,7 @@
 			phoneNumVerify() {
 				const url = '/api.smartfha/webcommon/val/numverify.php'
 				const form = new FormData()
-				form.append('priPhone', this.priPhone)
+				form.append('priPhone', this.ansGrp.contactInfo.priPhone)
 				// const url = 'http://smartfha.com/webcommon/val/numverify.php'
 				this.axios.post(url,
 					form,

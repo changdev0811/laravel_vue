@@ -231,82 +231,60 @@
 					workWAgent = subData.workWAgent,
 					nhTimeFrame = subData.nhTimeFrame
 
+				var postData = {
+					api_key: 'BC602DBC-0D89-412A-820E-DD32E12922EB',
+					PROP_DESC: homeType,
+					PROP_PURP: homeUse,
+					CRED_GRADE: creditType,
+					FNAME: contactInfo.firstName,
+					LNAME: contactInfo.lastName,
+					ADDRESS: contactInfo.address,
+					CITY: contactInfo.city,
+					STATE: contactInfo.states,
+					ZIP: contactInfo.zipcode,
+					EMAIL: contactInfo.priEmail,
+					PRI_PHON: contactInfo.priPhone,
+					leadid_token: hidData.leadidToken,
+					c1: hidData.c1,
+					c2: hidData.c2,
+					c3: hidData.c3,
+					pubid: hidData.pubId,
+					hid: hidData.hId,
+					netid: hidData.ref,
+					sid: hidData.sId,
+					xxTrustedFormToken: hidData.xxTrustedFormCertUrl_0,
+					siteid: hidData.siteId,
+				}
 				if (loanInterest == 'PP_REFI') {
 					var channel = '3'
-					var postData = querystring.stringify({
-						api_key: 'BC602DBC-0D89-412A-820E-DD32E12922EB',
-						PRODUCT: 'Refinance',
-						PROP_ZIP: refiZipcode,
-						PROP_DESC: homeType,
-						PROP_PURP: homeUse,
-						EST_VAL: refiHomeValue,
-						mortgage_one_amount: firstMorBalance,
-						mortgage_one_rate: firstMorRate,
-						mortgage_two_amount: secondMorBalance,
-						mortgage_two_rate: secondMorRate,
-						LOAN_TYPE: refiLoanType,
-						ADD_CASH: additionalCash,
-						CRED_GRADE: creditType,
-						FNAME: contactInfo.firstName,
-						LNAME: contactInfo.lastName,
-						ADDRESS: contactInfo.address,
-						CITY: contactInfo.city,
-						STATE: contactInfo.states,
-						ZIP: contactInfo.zipcode,
-						EMAIL: contactInfo.priEmail,
-						PRI_PHON: contactInfo.priPhone,
-						type: channel,
-						leadid_token: hidData.leadidToken,
-						c1: hidData.c1,
-						c2: hidData.c2,
-						c3: hidData.c3,
-						pubid: hidData.pubId,
-						hid: hidData.hId,
-						netid: hidData.ref,
-						sid: hidData.sId,
-						xxTrustedFormToken: hidData.xxTrustedFormCertUrl_0,
-						siteid: hidData.siteId
-					})
+					
+					postData.PRODUCT = 'Refinance'
+					postData.PROP_ZIP = refiZipcode
+					postData.EST_VAL = refiHomeValue
+					postData.mortgage_one_amount = firstMorBalance
+					postData.mortgage_one_rate = firstMorRate
+					postData.mortgage_two_amount = secondMorBalance
+					postData.mortgage_two_rate = secondMorRate
+					postData.LOAN_TYPE = refiLoanType
+					postData.ADD_CASH = additionalCash
+					postData.type = channel
 				} else {
 					channel = '1'
 					var dwnpay = estHomeValue * (estDownpayment / 100);
-					var postData = querystring.stringify({
-						api_key:'BC602DBC-0D89-412A-820E-DD32E12922EB',
-						PRODUCT: 'Purchase',
-						PROP_AREA: '',
-						PROP_ZIP: nhZipcode,
-						PROP_DESC: homeType,
-						PROP_PURP: homeUse, 
-						SPEC_HOME: homeFound,
-						BUY_TIMEFRAME: nhTimeFrame,
-						AGENT_FOUND: workWAgent,
-						EST_VAL: estHomeValue,
-						DOWN_PMT_PERCENT: estDownpayment, 
-						DOWN_PMT: dwnpay,
-						LOAN_TYPE: estLoanType,
-						CRED_GRADE: creditType, 
-						FNAME: contactInfo.firstName, 
-						LNAME: contactInfo.lastName,
-						ADDRESS: contactInfo.address,
-						CITY: contactInfo.city,
-						STATE: contactInfo.states, 
-						ZIP: contactInfo.zipcode,
-						EMAIL: contactInfo.priEmail,
-						PRI_PHON:  contactInfo.priPhone,
-						type: channel,
-						// SR_TOKEN: $("input[name='SR_TOKEN']").val(),
-						leadid_token: hidData.leadidToken,
-						c1: hidData.c1,
-						c2: hidData.c2,
-						c3: hidData.c3,
-						pubid: hidData.pubId,
-						hid: hidData.hId,
-						netid: hidData.ref,
-						sid: hidData.sId,
-						xxTrustedFormToken: hidData.xxTrustedFormCertUrl_0,
-						siteid: hidData.siteId
-					})
+
+					postData.PRODUCT = 'Purchase'
+					postData.PROP_AREA = ''
+					postData.PROP_ZIP = nhZipcode
+					postData.SPEC_HOME = homeFound
+					postData.BUY_TIMEFRAME = nhTimeFrame
+					postData.AGENT_FOUND = workWAgent
+					postData.EST_VAL = estHomeValue
+					postData.DOWN_PMT_PERCENT = estDownpayment
+					postData.DOWN_PMT = dwnpay
+					postData.LOAN_TYPE = estLoanType
+					postData.type = channel
 				}
+				postData = querystring.stringify(postData)
 
 				var options = {
 					host: 'api.rxmg.bid',
@@ -375,7 +353,7 @@
 				// alert("success verify")
 				const url = '/api.smartfha/webcommon/val/xverify-email.php'
 				const form = new FormData()
-				form.append('email', this.priEmail)
+				form.append('email', this.ansGrp.contactInfo.priEmail)
 				form.append('source', this.source)
 				
 				this.axios.post(url,
@@ -407,7 +385,7 @@
 			phoneNumVerify() {
 				const url = '/api.smartfha/webcommon/val/numverify.php'
 				const form = new FormData()
-				form.append('priPhone', this.priPhone)
+				form.append('priPhone', this.ansGrp.contactInfo.priPhone)
 				// const url = 'http://smartfha.com/webcommon/val/numverify.php'
 				this.axios.post(url,
 					form,
