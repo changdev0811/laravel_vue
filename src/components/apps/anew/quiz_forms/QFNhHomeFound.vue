@@ -6,38 +6,36 @@
 					<div class="col-md-8">
 						<div class="quiz-subtitle">Have you found a home?</div>
 					</div><!--
-					--><div class="col-md-2">
-						<q-button
-							q-btn-color='#38B4CD'
-							@click.native="() => {ansGrp.homeFound = 'yes'}">
-							yes
-						</q-button>
-					</div><!--
-					--><div class="col-md-2">
-						<q-button
-							q-btn-color='#38B4CD'
-							@click.native="() => {ansGrp.homeFound = 'no'}">
-							no
-						</q-button>
+					--><div class="col-md-4">
+						<div class="row">	
+							<q-button
+								v-for="item in items"
+								class="col-md-6"
+								:class="item.id == sel_id_1?'selected':''"
+								q-btn-class="btn-blue"
+								@click.native="sel_id_1 = item.id; ansGrp.homeFound = item.val"
+								:key="item.id">
+								{{item.val}}
+							</q-button>
+						</div>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="workagent">
 					<div class="col-md-8">
 						<div class="quiz-subtitle">Are you currently working with an agent?</div>
 					</div><!--
-					--><div class="col-md-2">
-						<q-button
-							q-btn-color='#38B4CD'
-							@click.native="() => {ansGrp.workWAgent = 'yes'}">
-							yes
-						</q-button>
-					</div><!--
-					--><div class="col-md-2">
-						<q-button
-							q-btn-color='#38B4CD'
-							@click.native="() => {ansGrp.workWAgent = 'no'}">
-							no
-						</q-button>
+					--><div class="col-md-4">
+						<div class="row">
+							<q-button
+								v-for="item in items"
+								class="col-md-6"
+								:class="item.id == sel_id_2?'selected':''"
+								q-btn-class="btn-blue"
+								@click.native="sel_id_2 = item.id; ansGrp.workWAgent = item.val"
+								:key="item.id">
+								{{item.val}}
+							</q-button>
+						</div>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="timeframe">
@@ -60,7 +58,7 @@
 				<div class="row btn-wrapper">
 					<div class="col-md-4 col-md-offset-4">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							q-btn-icon="glyphicon-chevron-right"
 							@click.native="setAnswerToQuestion('QFNhHomeValue', set_answersInfo)">
 							next 
@@ -91,6 +89,12 @@
 		        	workWAgent: '',
 					nhTimeFrame: '',
 				},
+				sel_id_1: undefined,
+				sel_id_2: undefined,
+				items: [
+					{id: 1, val: 'yes'},
+					{id: 2, val: 'no'},
+				],
 			}
 		},
 		methods: {

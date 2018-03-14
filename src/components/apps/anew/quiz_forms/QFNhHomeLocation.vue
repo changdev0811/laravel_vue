@@ -21,7 +21,7 @@
 				<div class="row btn-wrapper">
 					<div class="col-md-6 col-md-offset-3">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							q-btn-icon="glyphicon-chevron-right"
 							@click.native="setAnswerToQuestion('QFNhHomeType', set_answersInfo)">
 							next 

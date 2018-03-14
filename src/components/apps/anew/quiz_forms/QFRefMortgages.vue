@@ -7,12 +7,12 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFRefMortgageInfo')">
 							1st only
 						</q-button>
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFRefMortgageTwoInfo')">
 							1st &amp; 2nd
 						</q-button>

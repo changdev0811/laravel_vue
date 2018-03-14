@@ -1,8 +1,8 @@
 <template>
 	<div class="q-button">
 		<button
-			:style="{background:qBtnColor}"
-			class="btn sub-btn">
+			class="btn sub-btn"
+			:class="qBtnClass">
 			<slot></slot>
 			<i v-if="qBtnIcon" :class="['glyphicon', qBtnIcon]"></i>
 		</button>
@@ -11,17 +11,12 @@
 <script>
 	export default {
 		name: 'q-button',
-		props: ['q-btn-icon', 'q-btn-color'],
-		data() {
-			return {
-
-			}
-		}
+		props: ['q-btn-icon', 'q-btn-class',],
 	}
 </script>
 <style lang="sass" scoped>
 	.q-button
-		padding: 10px 0
+		padding: 10px
 	.sub-btn
 	    border-radius: 15px
 	    -moz-border-radius: 15px
@@ -39,6 +34,9 @@
 	    text-align: center
 	    text-transform: uppercase
 	    font-size: 18px
-	.q-button button:hover
+	.q-button button:hover,
+	.unselected > button
 		background: #7d7d7d !important
+	.selected > button
+		background: #ffc600 !important
 </style>

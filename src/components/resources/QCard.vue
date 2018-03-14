@@ -1,14 +1,15 @@
 <template>
-	<div class="q-card" data-inputval="PP_REFI"  @mouseover="active = true" @mouseleave="active = false" v-bind:class="{on: active, off: !active}">
-		<div class="row">
-			<div class="q-card-media col-md-12 col-xs-3" >
-				<img :src="loadImg" alt="refinance" class="img-responsive img-btn">
-			</div>
-			
-			<div class="q-card-text col-md-12 col-xs-9 ">
-				{{title}}
-			</div>
-		</div><!--row-->
+	<div class="q-card">
+		<div class="q-card-inner">
+			<div class="row">
+				<div class="q-card-media col-md-12 col-xs-3" >
+					<img :src="loadImg" alt="refinance" class="img-responsive img-btn">
+				</div>
+				<div class="q-card-text col-md-12 col-xs-9 ">
+					{{title}}
+				</div>
+			</div><!--row-->
+		</div>
 	</div><!--/answer-->
 </template>
 
@@ -31,22 +32,23 @@
 
 <style lang="sass" scoped>
 	@import '~@/assets/css/mq.sass'
-	.q-card
+	.q-card-inner
 		border-radius: 15px;
 		-moz-border-radius: 15px;
 		-webkit-border-radius: 15px;
-		overflow: hidden
-		background: #1bcc62
-		margin-top: 15px
-		margin-bottom: 15px
-
-	.q-card.on
-		background: #7d7d7d
 		-webkit-transition: all 500ms ease
 		-moz-transition: all 500ms ease
 		-o-transition: all 500ms ease
 		transition: all 500ms ease
-
+		overflow: hidden
+		background: #1bcc62
+		margin-top: 15px
+		margin-bottom: 15px
+	.q-card-inner:hover,
+	.unselected > .q-card-inner
+		background: #7d7d7d
+	.selected > .q-card-inner
+		background: #ffc600 !important
 	.q-card-media
 		@include non-desktop
 			display: inline-block

@@ -6,14 +6,14 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-2">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFRefHomeLocation', set_answersInfo({additionalCash:'yes'}))">
 							yes
 						</q-button>
 					</div>
 					<div class="col-md-4">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFRefHomeLocation', set_answersInfo({additionalCash:'no'}))">
 							no
 						</q-button>

@@ -6,14 +6,14 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-2">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFRefAdditionalCash', set_answersInfo({loanInterest:'PP_REFI',loanType:'refinance'}))">
 							refinance
 						</q-button>
 					</div>
 					<div class="col-md-4">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFNhHomeLocation', set_answersInfo({loanInterest:'PP_NEWHOME',loanType:'purchase'}))">
 							new home 
 						</q-button>

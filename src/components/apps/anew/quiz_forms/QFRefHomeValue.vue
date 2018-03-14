@@ -22,7 +22,7 @@
 				<div class="row btn-wrapper">
 					<div class="col-md-4 col-md-offset-4">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							q-btn-icon="glyphicon-chevron-right"
 							@click.native="setAnswerToQuestion('QFRefMortgages', set_answersInfo)">
 							next 

@@ -6,22 +6,22 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'SINGLE_FAM'}))">
 							single family
 						</q-button>
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'MULTI_FAM'}))">
 							multi family
 						</q-button>
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'TOWNHOUSE'}))">
 							town house
 						</q-button>
 						<q-button
-							q-btn-color='#38B4CD'
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFNhHomeUse', set_answersInfo({homeType:'CONDO'}))">
 							condo
 						</q-button>

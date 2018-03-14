@@ -7,38 +7,36 @@
 					<div class="col-md-8">
 						<div class="quiz-subtitle">Have you found a home?</div>
 					</div><!--
-					--><div class="col-md-2">
-						<q-card 
-							title="Yes" 
-							img-src="img/yes.png"
-							@click.native="() => {ansGrp.homeFound = 'yes'}">
-						</q-card>
-					</div><!--
-					--><div class="col-md-2">
-						<q-card 
-							title="No" 
-							img-src="img/no.png"
-							@click.native="() => {ansGrp.homeFound = 'no'}">
-						</q-card>
+					--><div class="col-md-4">
+						<div class="row">
+							<q-card
+								v-for="item in items"
+								class="col-md-6"
+								:class="item.id == sel_id_1?'selected':''"
+								:title="item.val"
+								:img-src="item.imgSrc"
+								@click.native="sel_id_1 = item.id; ansGrp.homeFound = item.val"
+								:key="item.id">
+							</q-card>
+						</div>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="workagent">
 					<div class="col-md-8">
 						<div class="quiz-subtitle">Are you currently working with an agent?</div>
 					</div><!--
-					--><div class="col-md-2">
-						<q-card 
-							title="Yes" 
-							img-src="img/yes.png"
-							@click.native="() => {ansGrp.workWAgent = 'yes'}">
-						</q-card>
-					</div><!--
-					--><div class="col-md-2">
-						<q-card 
-							title="No" 
-							img-src="img/no.png"
-							@click.native="() => {ansGrp.workWAgent = 'no'}">
-						</q-card>
+					--><div class="col-md-4">
+						<div class="row">
+							<q-card
+								v-for="item in items"
+								class="col-md-6"
+								:class="item.id == sel_id_2?'selected':''"
+								:title="item.val"
+								:img-src="item.imgSrc"
+								@click.native="sel_id_2 = item.id; ansGrp.workWAgent = item.val"
+								:key="item.id">
+							</q-card>
+						</div>
 					</div>
 				</div>
 				<div class="row vertical-middle" id="timeframe">
@@ -91,6 +89,12 @@
 		        	workWAgent: '',
 					nhTimeFrame: '',
 				},
+				sel_id_1: undefined,
+				sel_id_2: undefined,
+				items: [
+					{id: 1, val: 'yes', imgSrc: 'img/yes.png'},
+					{id: 2, val: 'no', imgSrc: 'img/no.png'},
+				],
 	        }
 	    },
 	    methods: {

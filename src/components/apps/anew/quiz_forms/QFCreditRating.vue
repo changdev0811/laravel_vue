@@ -7,27 +7,27 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFEmailSubmit', set_answersInfo({creditType:'EXCELLENT'}))">
 							excellent (720+)
 						</q-button>
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFEmailSubmit', set_answersInfo({creditType:'GOOD'}))">
 							good (660-719)
 						</q-button>
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFEmailSubmit', set_answersInfo({creditType:'AVERAGE'}))">
 							average (620-659)
 						</q-button>
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFEmailSubmit', set_answersInfo({creditType:'FAIR'}))">
 							fair (580-619)
 						</q-button>
 						<q-button
-							q-btn-color="#38B4CD"
+							q-btn-class='btn-blue'
 							@click.native="setAnswerToQuestion('QFEmailSubmit', set_answersInfo({creditType:'POOR'}))">
 							poor (&lt;579)
 						</q-button>
