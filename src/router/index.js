@@ -9,6 +9,7 @@ import Anew_router from '@/components/apps/anew/router'
 Vue.use(Router)
 
 export default new Router({
+	mode: 'history',
 	routes: [
 		{
 			path: '/lp2new',
