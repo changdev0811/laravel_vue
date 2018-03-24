@@ -206,6 +206,14 @@
 			...mapActions('lp2new', [
 				'setAnswersInfo',
 			]),
+			collectUrlKeyValuePairs() {
+				return this.submitData.incomingParams
+			},
+			changeUrlKeyValuePair(key,val) {
+				var incoming_params = this.submitData.incomingParams
+				incoming_params.key = val
+				return incoming_params
+			},
 			purchaseSubmit() {
 				var subData = this.submitData,
 					hidData = this.hiddenData

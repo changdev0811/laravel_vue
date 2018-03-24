@@ -167,6 +167,14 @@
 			...mapActions('anew', [
 				'setAnswersInfo',
 			]),
+			collectUrlKeyValuePairs() {
+				return this.submitData.incomingParams
+			},
+			changeUrlKeyValuePair(key,val) {
+				var incoming_params = this.submitData.incomingParams
+				incoming_params.key = val
+				return incoming_params
+			},
 			emailVerify() {
 				// alert("success verify")
 				const url = '/api.smartfha/webcommon/val/xverify-email.php'
