@@ -42,6 +42,13 @@
 				this.setAnswersInfo(payload)
 				return true
 			},
+			captureUrlKeyValuePairs: function() {
+				var payload = {incomingParams: this.$route.query}
+				this.setAnswersInfo(payload)
+			},
+		},
+		mounted() {
+			this.captureUrlKeyValuePairs()			
 		},
 		components: {
 			Question,

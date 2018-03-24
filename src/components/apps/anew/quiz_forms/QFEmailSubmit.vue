@@ -141,9 +141,10 @@
 	        ...mapState('common', {
 	        	states_options: state => state.states_options,
 	        }),
-	        ...mapGetters('anew', [
-	        	'getSubmitData',
-	        ]),
+	        // Get the state of anew module
+	        ...mapState('anew', {
+	        	submitData: state => state,
+	        }),
 	    },
 		data() {
 			return {

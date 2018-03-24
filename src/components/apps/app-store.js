@@ -46,44 +46,7 @@ export default store({
     	estLoanType: '',
 	},	// end of state --------------------------------------
 	getters: {
-		getSubmitData: state => {
-			return {
-				// 1
-				loanInterest: state.loanInterest,
-				loanType: state.loanType,
-				// 2
-				additionalCash: state.additionalCash,
-				// 3
-				refiZipcode: state.refiZipcode,
-				// 4
-				refiHomeValue: state.refiHomeValue,
-				// 5
-				firstMorBalance: state.firstMorBalance,
-	        	firstMorRate: state.firstMorRate,
-	        	secondMorBalance: state.secondMorBalance,
-	        	secondMorRate: state.secondMorRate,
-	        	refiLoanType: state.refiLoanType,
-	        	// 6
-	        	creditType: state.creditType,
-	        	// 7
-	        	contactInfo: state.contactInfo,
-	        	// 8
-	        	nhZipcode: state.nhZipcode,
-	        	// 9
-	        	homeType: state.homeType,
-	        	// 10
-	        	homeUse: state.homeUse,
-	        	// 11
-	        	homeFound: state.homeFound,
-		    	workWAgent: state.workWAgent,
-		    	nhTimeFrame: state.nhTimeFrame,
-		    	// 12
-		    	estHomeValue: state.estHomeValue,
-		    	estDownpayment: state.estDownpayment,
-		    	estLoanType: state.estLoanType,
-			}
-		},
-
+		
 	},	// end of getters --------------------------------------
 	mutations: {
 		// common function

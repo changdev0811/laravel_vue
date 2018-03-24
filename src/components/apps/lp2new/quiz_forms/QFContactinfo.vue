@@ -165,9 +165,10 @@
 	        ...mapState('common', {
 	        	states_options: state => state.states_options,
 	        }),
-	        ...mapGetters('lp2new', [
-	        	'getSubmitData',
-	        ]),
+	        // Get the state of lp2new module
+	        ...mapState('lp2new', {
+	        	submitData: state => state,
+	        }),
 	    },
 		data() {
 			return {
@@ -206,9 +207,8 @@
 				'setAnswersInfo',
 			]),
 			purchaseSubmit() {
-				var subData = this.getSubmitData,
+				var subData = this.submitData,
 					hidData = this.hiddenData
-
 				var loanInterest = subData.loanInterest,
 					loanType = subData.loanType,
 					creditType = subData.creditType,
